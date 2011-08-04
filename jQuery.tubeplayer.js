@@ -159,6 +159,8 @@
 		showControls: 1,
 		showRelated: 0,
 		autoPlay: 0,
+                // with respect to [wmode] - 'transparent' maintains z-index, but disables GPU acceleration
+                wmode: 'transparent', // you probably want to use 'window' when optimizing for mobile devices
 		swfobjectURL: "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js",
 		
 		// privately used
@@ -347,7 +349,9 @@
 					
 					'rel': o.showRelated,
 					
-					'fs': (o.allowFullScreen?1:0)
+					'fs': (o.allowFullScreen?1:0),
+					
+					'wmode': o.wmode
 					
 				},
 				
@@ -506,7 +510,7 @@
 				"8", null, null, 
 				{ 
 					allowScriptAccess: o.allowScriptAccess, 
-					wmode: 'transparent', 
+					wmode: o.wmode, 
 					allowFullScreen: o.allowFullScreen 
 				}, 
 				{ id: o.playerID }
