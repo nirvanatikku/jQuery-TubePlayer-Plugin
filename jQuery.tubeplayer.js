@@ -1,7 +1,7 @@
 /*!
  * jQuery TubePlayer Plugin
  * 
- * version: 1.0.1 (14-MAY-2011)
+ * version: 1.0.2 (3-Aug-2011)
  * @requires v1.3.2 or later
  *
  * @imports SWFObject - http://code.google.com/p/swfobject/
@@ -159,9 +159,11 @@
 		showControls: 1,
 		showRelated: 0,
 		autoPlay: 0,
-                // with respect to [wmode] - 'transparent' maintains z-index, but disables GPU acceleration
-                wmode: 'transparent', // you probably want to use 'window' when optimizing for mobile devices
+		autoHide: 1,
+		// with respect to [wmode] - 'transparent' maintains z-index, but disables GPU acceleration
+		wmode: 'transparent', // you probably want to use 'window' when optimizing for mobile devices
 		swfobjectURL: "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js",
+		loadSWFObject: true, // by default, we will attempt to load the swfobject script, if utilizing the flash player
 		
 		// privately used
 		allowScriptAccess: "always",
@@ -345,6 +347,8 @@
 					
 					'autoplay': o.autoPlay, 
 					
+					'autohide': o.autoHide,
+					
 					'controls': o.showControls,
 					
 					'rel': o.showRelated,
@@ -489,11 +493,29 @@
 	
 	/**
 	 * Flash player initialization
+	 *  -> if 'loadSWFObject' is set to true, player will only be init'd
+	 *      when the swfobject script request has completed successfully
+	 *  -> if 'loadSWFObject' is set to false, assumes that you have 
+	 *      imported your own SWFObject, prior to TubePlayer's initialization
 	 * @imports swfobject automatically
 	 */
 	TubePlayer.initFlashPlayer = function($player, o){
 		
-		$.getScript(o.swfobjectURL, function(){
+		if(o.loadSWFObject){
+		    
+		    $.getScript(o.swfobjectURL, TubePlayer.initFlashPlayerFN(o));
+		    
+		} else {
+		    
+		    TubePlayer.initFlashPlayerFN(o)();
+		    
+		}
+		
+	};
+	
+	TubePlayer.initFlashPlayerFN = function(o){
+	  
+	    return function(){
 		
 			var url =  ["//www.youtube.com/v/"]
 			url.push( o.initialVideo );
@@ -502,6 +524,7 @@
 			url.push( "&playerapiid=" + o.playerID );
 			url.push( "&rel= " + o.showRelated );
 			url.push( "&autoplay=" + o.autoPlay );
+			url.push( "&autohide=" + o.autoHide );
 			url.push( "&controls=" + o.showControls );
 			
 			swfobject.embedSWF(url.join(""), o.playerID, 
@@ -535,8 +558,8 @@
 				
 			};
 			
-		});
-		
+		}
+	    
 	};
 	
 	// fmt: youtube.com/watch?v=[desired-token]&
