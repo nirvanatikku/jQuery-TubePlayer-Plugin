@@ -1,7 +1,7 @@
 /*!
  * jQuery TubePlayer Plugin
  * 
- * version: 1.0.2 (3-Aug-2011)
+ * version: 1.0.3 (14-Aug-2011)
  * @requires v1.3.2 or later
  *
  * @imports SWFObject - http://code.google.com/p/swfobject/
@@ -155,11 +155,17 @@
 		height: 355,
 		allowFullScreen: "true",
 		initialVideo: "DkoeNLuMbcI",
+		start: 0,
 		preferredQuality: "default",
-		showControls: 1,
-		showRelated: 0,
-		autoPlay: 0,
-		autoHide: 1,
+		showControls: true,
+		showRelated: false,
+		autoPlay: false,
+		autoHide: true,
+		theme: 'dark', // 'dark' or 'light'
+		color: 'red', // 'red' or 'white'
+		showinfo: false,
+		modestbranding: true,
+		
 		// with respect to [wmode] - 'transparent' maintains z-index, but disables GPU acceleration
 		wmode: 'transparent', // you probably want to use 'window' when optimizing for mobile devices
 		swfobjectURL: "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js",
@@ -345,17 +351,27 @@
 				
 				playerVars: { 
 					
-					'autoplay': o.autoPlay, 
+					'autoplay': (o.autoPlay?1:0), 
 					
-					'autohide': o.autoHide,
+					'autohide': (o.autoHide?1:0),
 					
-					'controls': o.showControls,
+					'controls': (o.showControls?1:0),
 					
-					'rel': o.showRelated,
+					'rel': (o.showRelated?1:0),
 					
 					'fs': (o.allowFullScreen?1:0),
 					
-					'wmode': o.wmode
+					'wmode': o.wmode,
+					
+					'showinfo': (o.showinfo?1:0),
+					
+					'modestbranding': (o.modestbranding?1:0),
+					
+					'start': o.start,
+					
+					'theme': o.theme,
+					
+					'color': o.color
 					
 				},
 				
@@ -384,7 +400,7 @@
 		});
 		
 		// stacked init method
-		if(TubePlayer.inits.length==1 && !TubePlayer.inited){
+		if(TubePlayer.inits.length>=1 && !TubePlayer.inited){
 			
 			return function(){
 				
@@ -522,10 +538,15 @@
 			url.push( "?fs=" + (o.allowFullScreen?1:0) );
 			url.push( "&enablejsapi=1&version=3" );
 			url.push( "&playerapiid=" + o.playerID );
-			url.push( "&rel= " + o.showRelated );
-			url.push( "&autoplay=" + o.autoPlay );
-			url.push( "&autohide=" + o.autoHide );
-			url.push( "&controls=" + o.showControls );
+			url.push( "&rel= " + (o.showRelated?1:0) );
+			url.push( "&autoplay=" + (o.autoPlay?1:0) );
+			url.push( "&autohide=" + (o.autoHide?1:0) );
+			url.push( "&controls=" + (o.showControls?1:0) );
+			url.push( "&showinfo=" + (o.showinfo?1:0) );
+			url.push( "&modestbranding=" + (o.modestbranding?1:0) );
+			url.push( "&start=" + o.start );
+			url.push( "&theme=" + o.theme );
+			url.push( "&color=" + o.color );
 			
 			swfobject.embedSWF(url.join(""), o.playerID, 
 				o.width, 
