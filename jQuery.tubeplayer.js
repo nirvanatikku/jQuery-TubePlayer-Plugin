@@ -1,7 +1,7 @@
 /*!
  * jQuery TubePlayer Plugin
  * 
- * version: 1.0.3 (14-Aug-2011)
+ * version: 1.0.4 (12-Nov-2011)
  * @requires v1.3.2 or later
  *
  * @imports SWFObject - http://code.google.com/p/swfobject/
@@ -286,7 +286,7 @@
 		
 		var o = $.extend({}, defaults, opts);
 			
-		o.playerID = o.playerID + ( new Date().valueOf() );
+		o.playerID = o.playerID + ( new Date().valueOf() ) + "_" + Math.random();
 			
 		$player.addClass(TUBE_PLAYER_CLASS).data(OPTS, o);
 		
@@ -583,19 +583,23 @@
 	    
 	};
 	
-	// fmt: youtube.com/watch?v=[desired-token]&
+	// fmt: youtube.com/watch?x=[anything]&v=[desired-token]&
 	TubePlayer.getVideoIDFromURL = function(sURL){
 		
-		var pattern = 'youtube.com/watch?v=';
+		var qryParamsStart = sURL.indexOf("?");
 		
-		var start = sURL.indexOf(pattern) + pattern.length;
+		var qryParams = sURL.substring(qryParamsStart, sURL.length);
 		
-		var end = sURL.indexOf('&', start) || sURL.length;
+		var videoStart = qryParams.indexOf("v=");
+		if( videoStart > -1 ) { 
+		    var videoEnd = qryParams.indexOf("&", videoStart);
+		    if( videoEnd == -1 ) { 
+		        videoEnd = qryParams.length;
+		    }
+		    return videoParam = qryParams.substring(videoStart+"v=".length, videoEnd);
+		}
 		
-		if( start > end )
-			return "";
-		
-		return sURL.substring(start, end);
+		return "";
 		
 	};
 	
