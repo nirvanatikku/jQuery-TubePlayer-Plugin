@@ -165,10 +165,11 @@
 		color: 'red', // 'red' or 'white'
 		showinfo: false,
 		modestbranding: true,
+		protocol: 'http', // set to 'https' for compatibility on SSL-enabled pages
 		
 		// with respect to [wmode] - 'transparent' maintains z-index, but disables GPU acceleration
 		wmode: 'transparent', // you probably want to use 'window' when optimizing for mobile devices
-		swfobjectURL: "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js",
+		swfobjectURL: "ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js", // exclude the protocol, it will be read from the 'protocol' property
 		loadSWFObject: true, // by default, we will attempt to load the swfobject script, if utilizing the flash player
 		
 		// privately used
@@ -492,7 +493,7 @@
 			// write the api script tag
 			var tag = document.createElement('script');
 		
-			tag.src = "http://www.youtube.com/player_api";
+			tag.src = o.protocol + "://www.youtube.com/player_api";
 		
 			var firstScriptTag = document.getElementsByTagName('script')[0];
 		
@@ -518,6 +519,11 @@
 	TubePlayer.initFlashPlayer = function($player, o){
 		
 		if(o.loadSWFObject){
+		    
+		    // cleanup swfobjectURL to re-apply the protocol
+		    o.swfobjectURL = o.swfobjectURL.replace('http://', '');
+		    o.swfobjectURL = o.swfobjectURL.replace('https://', '');
+		    o.swfobjectURL = o.protocol + '://' + o.swfobjectURL;
 		    
 		    $.getScript(o.swfobjectURL, TubePlayer.initFlashPlayerFN(o));
 		    
