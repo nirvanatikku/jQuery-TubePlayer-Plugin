@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>jQuery YouTube Player Plugin by nirvanatikku</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>jQuery YouTube Player Plugin</h1>
+        <p>The easiest way to embed and control the YouTube player! </p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin" class="button fork"><strong>Fork On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <p><strong>jQuery TubePlayer Plugin</strong></p>
+
+<p>For more information: <a href="http://www.tikku.com/jquery-youtube-tubeplayer-plugin">http://www.tikku.com/jquery-youtube-tubeplayer-plugin</a></p>
+
+<p>Author: Nirvana Tikku (ntikku@gmail.com, @ntikku)</p>
+
+<p>Dual licensed under the MIT or GPL Version 2 licenses.</p>
+
+<hr><p>The TubePlayer plugin simplifies the process for developers to control and work with
+the YouTube player. The plugin exposes methods enabling control for three cases: 
+upon triggering events, when the players state changes are triggered and when errors are 
+fired from the player.</p>
+
+<hr><h2>Events Subscribed:</h2>
+
+<pre><code>onPlay,
+onPause,
+onStop,
+onSeek,
+onMute,
+onUnMute
+
+onPlayerUnstarted,
+onPlayerEnded,
+onPlayerPlaying,
+onPlayerPaused,
+onPlayerBuffering,
+onPlayerCued,
+onQualityChange
+
+onErrorNotFound,
+onErrorNotEmbeddable,
+onErrorInvalidParameter
+</code></pre>
+
+<h2>TubePlayer Methods:</h2>
+
+<pre><code>jQuery("#player").tubeplayer("cue", playerId);
+jQuery("#player").tubeplayer("play");
+jQuery("#player").tubeplayer("play", videoId);
+jQuery("#player").tubeplayer("play", {id: videoId, time: 0});
+jQuery("#player").tubeplayer("pause");
+jQuery("#player").tubeplayer("stop");
+jQuery("#player").tubeplayer("seek",100);
+jQuery("#player").tubeplayer("mute");
+jQuery("#player").tubeplayer("unmute");
+jQuery("#player").tubeplayer("isMuted");
+jQuery("#player").tubeplayer("volume");
+jQuery("#player").tubeplayer("volume",50);
+jQuery("#player").tubeplayer("quality");
+jQuery("#player").tubeplayer("quality", "hd720");
+jQuery("#player").tubeplayer("data");
+jQuery("#player").tubeplayer("videoId");
+jQuery("#player").tubeplayer("size");
+jQuery("#player").tubeplayer("size",{width:400,height:300});
+jQuery("#player").tubeplayer("destroy");
+jQuery("#player").tubeplayer("player");
+</code></pre>
+
+<h2>To minify:</h2>
+
+<pre><code>java -jar compiler.jar --js=jQuery.tubeplayer.js &gt; jQuery.tubeplayer.min.js
+</code></pre>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/nirvanatikku">nirvanatikku</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-8984274-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
