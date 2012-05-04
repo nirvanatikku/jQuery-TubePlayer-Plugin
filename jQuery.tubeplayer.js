@@ -592,6 +592,8 @@
 	// fmt: youtube.com/watch?x=[anything]&v=[desired-token]&
 	TubePlayer.getVideoIDFromURL = function(sURL){
 		
+		sURL = sURL || ""; // make sure it's a string; sometimes the YT player API returns undefined, and then indexOf() below will fail
+		
 		var qryParamsStart = sURL.indexOf("?");
 		
 		var qryParams = sURL.substring(qryParamsStart, sURL.length);
