@@ -159,6 +159,7 @@
 		preferredQuality: "default",
 		showControls: true,
 		showRelated: false,
+		annotations: true,
 		autoPlay: false,
 		autoHide: true,
 		theme: 'dark', // 'dark' or 'light'
@@ -368,6 +369,8 @@
 					
 					'modestbranding': (o.modestbranding?1:0),
 					
+					'iv_load_policy': (o.annotations?1:3),
+					
 					'start': o.start,
 					
 					'theme': o.theme,
@@ -550,6 +553,7 @@
 			url.push( "&controls=" + (o.showControls?1:0) );
 			url.push( "&showinfo=" + (o.showinfo?1:0) );
 			url.push( "&modestbranding=" + (o.modestbranding?1:0) );
+			url.push( "&iv_load_policy=" + (o.annotations?1:3) );
 			url.push( "&start=" + o.start );
 			url.push( "&theme=" + o.theme );
 			url.push( "&color=" + o.color );
