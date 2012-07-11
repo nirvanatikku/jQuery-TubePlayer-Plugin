@@ -162,6 +162,7 @@
 		annotations: true,
 		autoPlay: false,
 		autoHide: true,
+		loop: 0,
 		theme: 'dark', // 'dark' or 'light'
 		color: 'red', // 'red' or 'white'
 		showinfo: false,
@@ -359,6 +360,8 @@
 					
 					'controls': (o.showControls?1:0),
 					
+					'loop': (o.loop?1:0),
+					
 					'rel': (o.showRelated?1:0),
 					
 					'fs': (o.allowFullScreen?1:0),
@@ -550,6 +553,7 @@
 			url.push( "&rel= " + (o.showRelated?1:0) );
 			url.push( "&autoplay=" + (o.autoPlay?1:0) );
 			url.push( "&autohide=" + (o.autoHide?1:0) );
+			url.push( "&loop=" + (o.loop?1:0) );
 			url.push( "&controls=" + (o.showControls?1:0) );
 			url.push( "&showinfo=" + (o.showinfo?1:0) );
 			url.push( "&modestbranding=" + (o.modestbranding?1:0) );
