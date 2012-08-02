@@ -362,6 +362,8 @@
 					
 					'loop': (o.loop?1:0),
 					
+					'playlist': (o.loop ? o.initialVideo : ""),
+
 					'rel': (o.showRelated?1:0),
 					
 					'fs': (o.allowFullScreen?1:0),
@@ -430,7 +432,7 @@
 			
 		}
 		
-		return onYouTubePlayerAPIReady;
+		return onYouTubeIframeAPIReady;
 		
 	};
 	
@@ -499,7 +501,7 @@
 			// write the api script tag
 			var tag = document.createElement('script');
 		
-			tag.src = o.protocol + "://www.youtube.com/player_api";
+			tag.src = o.protocol + "://www.youtube.com/iframe_api";
 		
 			var firstScriptTag = document.getElementsByTagName('script')[0];
 		
@@ -510,7 +512,7 @@
 		};
 		
 		// init the iframe player
-		onYouTubePlayerAPIReady = TubePlayer.iframeReady(o);
+		onYouTubeIframeAPIReady = TubePlayer.iframeReady(o);
 		
 	};
 	
@@ -554,6 +556,7 @@
 			url.push( "&autoplay=" + (o.autoPlay?1:0) );
 			url.push( "&autohide=" + (o.autoHide?1:0) );
 			url.push( "&loop=" + (o.loop?1:0) );
+			url.push( "&playlist=" + (o.loop ? o.initialVideo : ""));
 			url.push( "&controls=" + (o.showControls?1:0) );
 			url.push( "&showinfo=" + (o.showinfo?1:0) );
 			url.push( "&modestbranding=" + (o.modestbranding?1:0) );
