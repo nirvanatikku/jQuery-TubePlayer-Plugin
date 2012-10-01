@@ -51,6 +51,7 @@
 	//
 	
 	$.tubeplayer = {};
+	$.tubeplayer.TubePlayer = TubePlayer;
 	
 	/**
 	 * These are all the events that are bound to the YouTube Player
@@ -69,7 +70,7 @@
 			var _ret = this.onPlayer;
 			
 			return function(state){
-				
+			    
 				if(typeof(state)=="object")
 					state = state.data;
 				
@@ -126,7 +127,7 @@
 			
 			return function(suggested){
 				
-				if(typeof(suggested)=="object")
+				if(typeof(suggested)==="object")
 					suggested = suggested.data;
 					
 				return _this.onQualityChange[player](suggested);
@@ -215,7 +216,7 @@
 		
 		var type = typeof input;
 		
-		if( arguments.length == 0 || type == "object" )
+		if( arguments.length === 0 || type === "object" )
 		
 			return $this.each(function(){
 				
@@ -223,7 +224,7 @@
 				
 			});
 			
-		else if( type == "string" )
+		else if( type === "string" )
 		
 			return $this.triggerHandler( input+TUBEPLAYER, xtra || null );
 			
@@ -244,7 +245,7 @@
 				
 				var ret = fn(evt, param, p);
 				
-				if(typeof(ret)=="undefined") 
+				if(typeof(ret)==="undefined") 
 					ret = p.$player;
 					
 				return ret;
@@ -299,7 +300,7 @@
 		TubePlayer.initDefaults($.tubeplayer.defaults, o);
 	
 		// insert the player container
-		jQuery("<div></div>").attr("id", o.playerID).appendTo($player);
+		$("<div></div>").attr("id", o.playerID).appendTo($player);
 		
 		// append the player into the container
 		TubePlayer.initPlayer($player, o);
@@ -645,7 +646,7 @@
 			
 			p.ytplayer.pauseVideo();
 			
-			p.opts.onPause();
+			p.opts.onPause(p);
 			
 		}),
 		
@@ -653,7 +654,7 @@
 			
 			p.ytplayer.stopVideo();
 			
-			p.opts.onStop();
+			p.opts.onStop(p);
 			
 		}),
 		
@@ -671,7 +672,7 @@
 			
 			p.ytplayer.mute(); 
 			
-			p.opts.onMute();
+			p.opts.onMute(p);
 			
 		}),
 		
