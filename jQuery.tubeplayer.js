@@ -168,6 +168,7 @@
 		annotations: true,
 		autoPlay: false,
 		autoHide: true,
+		loop: 0,
 		theme: 'dark', // 'dark' or 'light'
 		color: 'red', // 'red' or 'white'
 		showinfo: false,
@@ -365,6 +366,10 @@
 					
 					'controls': (o.showControls?1:0),
 					
+					'loop': (o.loop?1:0),
+					
+					'playlist': (o.loop ? o.initialVideo : ""),
+
 					'rel': (o.showRelated?1:0),
 					
 					'fs': (o.allowFullScreen?1:0),
@@ -502,7 +507,7 @@
 			// write the api script tag
 			var tag = document.createElement('script');
 		
-			tag.src = o.protocol + "://www.youtube.com/player_api";
+			tag.src = o.protocol + "://www.youtube.com/iframe_api";
 		
 			var firstScriptTag = document.getElementsByTagName('script')[0];
 		
@@ -555,6 +560,8 @@
 			url.push( "&rel= " + (o.showRelated?1:0) );
 			url.push( "&autoplay=" + (o.autoPlay?1:0) );
 			url.push( "&autohide=" + (o.autoHide?1:0) );
+			url.push( "&loop=" + (o.loop?1:0) );
+			url.push( "&playlist=" + (o.loop ? o.initialVideo : ""));
 			url.push( "&controls=" + (o.showControls?1:0) );
 			url.push( "&showinfo=" + (o.showinfo?1:0) );
 			url.push( "&modestbranding=" + (o.modestbranding?1:0) );
