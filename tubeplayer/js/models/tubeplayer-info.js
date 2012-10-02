@@ -24,9 +24,6 @@ define(['jquery','backbone'], function(){
             "allowScriptAccess":"always",
             "playerID":"?",
             "iframed":true
-        },
-        initialize: function(){
-            
         }
     });
     

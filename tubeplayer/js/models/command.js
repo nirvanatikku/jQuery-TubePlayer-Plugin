@@ -5,9 +5,6 @@ define(['jquery','backbone'], function(){
             command: "",
             arguments: [],
             func: function(){}
-        },
-        initialize: function(){
-            
         }
     });
     
