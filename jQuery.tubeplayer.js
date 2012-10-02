@@ -1,7 +1,7 @@
 /*!
  * jQuery TubePlayer Plugin
  * 
- * version: 1.0.4 (12-Nov-2011)
+ * version: 1.1.0 (1-Oct-2012)
  * @requires v1.3.2 or later
  *
  * @imports SWFObject - http://code.google.com/p/swfobject/
@@ -16,6 +16,8 @@
  *   http://www.gnu.org/licenses/gpl.html 
  */
 ;(function($){
+    
+    "use strict";
 	
 	// tubeplayer namespace
 	
@@ -53,6 +55,9 @@
 	$.tubeplayer = {};
 	$.tubeplayer.TubePlayer = TubePlayer;
 	
+	// events cache -- used by flashplayer version of video player
+	$.tubeplayer.events = {};
+	
 	/**
 	 * These are all the events that are bound to the YouTube Player
 	 * the events can be overridden as they are public.
@@ -71,7 +76,7 @@
 			
 			return function(state){
 			    
-				if(typeof(state)=="object")
+				if(typeof(state)==="object")
 					state = state.data;
 				
 				switch(state){
@@ -101,7 +106,7 @@
 			
 			return function(errorCode){
 				
-				if(typeof(errorCode)=="object")
+				if(typeof(errorCode)==="object")
 					errorCode = errorCode.data;
 					
 				switch(errorCode){
@@ -289,12 +294,12 @@
 		
 		var o = $.extend({}, defaults, opts);
 			
-		o.playerID = o.playerID + ( new Date().valueOf() ) + "_" + Math.random();
+		o.playerID += "-" + guid();
 			
 		$player.addClass(TUBE_PLAYER_CLASS).data(OPTS, o);
 		
-		for(e in PLAYER) 
-			$player.bind(e+TUBEPLAYER, $player, PLAYER[e]);
+		for(var event in PLAYER) 
+			$player.bind(event+TUBEPLAYER, $player, PLAYER[event]);
 			
 		// initialize the default event methods
 		TubePlayer.initDefaults($.tubeplayer.defaults, o);
@@ -428,7 +433,7 @@
 			
 		}
 		
-		return onYouTubePlayerAPIReady;
+		return window.onYouTubePlayerAPIReady;
 		
 	};
 	
@@ -508,7 +513,7 @@
 		};
 		
 		// init the iframe player
-		onYouTubePlayerAPIReady = TubePlayer.iframeReady(o);
+		window.onYouTubePlayerAPIReady = TubePlayer.iframeReady(o);
 		
 	};
 	
@@ -545,8 +550,7 @@
 		
 			var url =  ["//www.youtube.com/v/"]
 			url.push( o.initialVideo );
-			url.push( "?fs=" + (o.allowFullScreen?1:0) );
-			url.push( "&enablejsapi=1&version=3" );
+			url.push( "?&enablejsapi=1&version=3" );
 			url.push( "&playerapiid=" + o.playerID );
 			url.push( "&rel= " + (o.showRelated?1:0) );
 			url.push( "&autoplay=" + (o.autoPlay?1:0) );
@@ -558,6 +562,7 @@
 			url.push( "&start=" + o.start );
 			url.push( "&theme=" + o.theme );
 			url.push( "&color=" + o.color );
+			url.push( "&fs=" + (o.allowFullScreen?1:0) );
 			
 			swfobject.embedSWF(url.join(""), o.playerID, 
 				o.width, 
@@ -572,19 +577,26 @@
 			);
 			
 			// init the player ready fn
-			onYouTubePlayerReady = function(playerId) { 
+			window.onYouTubePlayerReady = function(playerId) { 
 				
 				var player = document.getElementById(playerId);
 				
+                var pid = playerId.replace(/-/g,'');
+                
+                var d = $.tubeplayer.defaults;
+                $.tubeplayer.events[pid] = {
+                    "stateChange": d.stateChange(playerId),
+                    "error": d.onError(playerId),
+                    "qualityChange": d.qualityChange(playerId)
+                };
+                
+				player.addEventListener("onStateChange", "$.tubeplayer.events."+pid+".stateChange"); 
+				player.addEventListener("onError", "$.tubeplayer.events."+pid+".error");
+				player.addEventListener("onPlaybackQualityChange", "$.tubeplayer.events."+pid+".qualityChange");
+				
 				TubePlayer.ytplayers[playerId] = player;
 				
-				player.addEventListener("onStateChange", "$.tubeplayer.defaults.stateChange('"+playerId+"')");
-			
-				player.addEventListener("onError", "$.tubeplayer.defaults.onError('"+playerId+"')");
-				
-				player.addEventListener("onPlaybackQualityChange", "$.tubeplayer.defaults.qualityChange('"+playerId+"')");
-				
-				var $player = $(player).parents("."+TUBE_PLAYER_CLASS);
+                var $player = $(player).parents("."+TUBE_PLAYER_CLASS);
 				
 				$.tubeplayer.defaults.afterReady($player);
 				
@@ -606,10 +618,10 @@
 		var videoStart = qryParams.indexOf("v=");
 		if( videoStart > -1 ) { 
 		    var videoEnd = qryParams.indexOf("&", videoStart);
-		    if( videoEnd == -1 ) { 
+		    if( videoEnd === -1 ) { 
 		        videoEnd = qryParams.length;
 		    }
-		    return videoParam = qryParams.substring(videoStart+"v=".length, videoEnd);
+		    return qryParams.substring(videoStart+"v=".length, videoEnd);
 		}
 		
 		return "";
@@ -629,7 +641,7 @@
 		
 		play: buildFN(function(evt,param,p){
 			
-			if(typeof(param)=='object') 
+			if(typeof(param)==='object') 
 				p.ytplayer.loadVideoById(param.id,param.time, p.opts.preferredQuality); 
 		
 			else if(param) 
@@ -734,8 +746,6 @@
 			
 			ret.currentTime = P.getCurrentTime();
 			
-			ret.availableQualityLevels = P.getAvailableQualityLevels();
-			
 			ret.duration = P.getDuration();
 			
 			ret.videoURL = P.getVideoUrl();
@@ -744,6 +754,8 @@
 			
 			ret.videoID = TubePlayer.getVideoIDFromURL(ret.videoURL);
 			
+			ret.availableQualityLevels = P.getAvailableQualityLevels();
+            
 			return ret;
 			
 		}),
@@ -775,6 +787,21 @@
 				
 			delete TubePlayer.ytplayers[p.opts.playerID];
 			
+			// cleanup callback handler references..
+			var d = $.tubeplayer.defaults;
+			
+			var events = ['unstarted','ended','playing','paused','buffering','cued'];
+			for(var _event in events) 
+			    delete d.onPlayer[events[_event]][p.opts.playerID];
+			    
+			events = ['notFound','notEmbeddable','invalidParameter'];
+			for(var _event in events) 
+			    delete d.onErr[events[_event]][p.opts.playerID];
+			    
+			delete d.onQualityChange[p.opts.playerID];
+			
+			delete $.tubeplayer.events[p.opts.playerID]; // flash callback ref's
+			
 			$(p.ytplayer).remove();
 			
 			return null;		
@@ -787,6 +814,14 @@
 			
 		})
 		
+	};
+	
+	// used in case of multiple players
+	function guid(){
+	    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });;
 	};
 	
 })(jQuery);
