@@ -14,8 +14,9 @@ define(['jquery','backbone'], function(){
         },
         invoke: function(evt){
             var fn = this.model.get("func");
-            if( fn ) 
+            if( fn ) {
                 fn(window.PLAYER.tubeplayer(this.model.get('command')));
+            }
         },
         render: function(){
             this.$el.html(this.template(this.model.toJSON()));
