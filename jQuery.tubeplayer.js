@@ -798,12 +798,14 @@
 			var d = $.tubeplayer.defaults;
 			
 			var events = ['unstarted','ended','playing','paused','buffering','cued'];
-			for(var _event in events) 
-			    delete d.onPlayer[events[_event]][p.opts.playerID];
+			jQuery.each(events, function(i, event) {
+				delete d.onPlayer[event][p.opts.playerID];
+			});
 			    
 			events = ['notFound','notEmbeddable','invalidParameter'];
-			for(var _event in events) 
-			    delete d.onErr[events[_event]][p.opts.playerID];
+			jQuery.each(events, function(i, event) {
+				delete d.onErr[event][p.opts.playerID];
+			});
 			    
 			delete d.onQualityChange[p.opts.playerID];
 			
