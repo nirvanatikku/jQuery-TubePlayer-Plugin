@@ -785,8 +785,7 @@
 			
 		}),
 		
-		destroy: buildFN(function(evt, param, p){
-
+		destroy: buildFN(function(evt, param, p) {
 			p.$player.removeClass(TUBE_PLAYER_CLASS)
 				.data(OPTS, null)
 				.unbind(TUBEPLAYER)
@@ -798,13 +797,19 @@
 			var d = $.tubeplayer.defaults;
 			
 			var events = ['unstarted','ended','playing','paused','buffering','cued'];
-			for(var _event in events) 
-			    delete d.onPlayer[events[_event]][p.opts.playerID];
-			    
+			for(var _event in events) {
+				if (events.hasOwnProperty(_event)) {
+					delete d.onPlayer[events[_event]][p.opts.playerID];
+				}
+			}
+			
 			events = ['notFound','notEmbeddable','invalidParameter'];
-			for(var _event in events) 
-			    delete d.onErr[events[_event]][p.opts.playerID];
-			    
+			for(var _event in events) {
+				if (events.hasOwnProperty(_event)) {
+					delete d.onErr[events[_event]][p.opts.playerID];
+				}
+			}
+			
 			delete d.onQualityChange[p.opts.playerID];
 			
 			delete $.tubeplayer.events[p.opts.playerID]; // flash callback ref's
