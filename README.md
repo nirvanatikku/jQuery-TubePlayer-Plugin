@@ -1,7 +1,7 @@
 jQuery YouTube TubePlayer Plugin
 ===
 
-Latest version: v1.1.0 (_1st Oct 2012_)
+Latest version: v1.1.1 (_17th Jan 2013_)
 
 http://www.tikku.com/jquery-youtube-tubeplayer-plugin
 
