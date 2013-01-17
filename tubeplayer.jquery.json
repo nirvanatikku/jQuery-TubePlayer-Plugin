@@ -9,18 +9,18 @@
   ],
   "version": "1.1.1",
   "author": {
-    "name": "Nirvana tikku"
+    "name": "Nirvana Tikku",
+    "email": "ntikku@gmail.com",
+    "url": "http://tikku.com"
   },
-  "maintainers": [
-    {
-      "name": "Nirvana Tikku",
-      "email": "ntikku@gmail.com",
-      "url": "http://tikku.com"
-    }
-  ],
+  "repository": {
+    "type": "git", 
+    "url": "git://github.com/nirvanatikku/jQuery-TubePlayer-Plugin.git"
+  }, 
   "licenses": [
     {
-      "type": "MIT"
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
     }
   ],
   "bugs": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin/issues",
