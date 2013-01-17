@@ -1,7 +1,7 @@
 /*!
  * jQuery TubePlayer Plugin
  * 
- * version: 1.1.0 (1-Oct-2012)
+ * version: 1.1.1 (17-Jan-2013)
  * @requires v1.3.2 or later
  *
  * @imports SWFObject - http://code.google.com/p/swfobject/

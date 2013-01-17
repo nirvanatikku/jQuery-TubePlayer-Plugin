@@ -7,7 +7,7 @@
     "video",
     "media"
   ],
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "Nirvana tikku"
   },
@@ -28,6 +28,6 @@
   "docs": "http://tikku.com/jquery-youtube-tubeplayer-plugin#tubeplayer_tutorial_3",
   "download": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin/blob/master/jQuery.tubeplayer.js",
   "dependencies": {
-    "jquery": ">=1.5"
+    "jquery": ">=1.3"
   }
 }
