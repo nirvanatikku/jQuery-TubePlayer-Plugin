@@ -1,7 +1,7 @@
 /*!
  * jQuery TubePlayer Plugin
  * 
- * version: 1.1.2 (17-Jan-2013)
+ * version: 1.1.3 (17-Jan-2013)
  * @requires v1.3.2 or later
  *
  * @imports SWFObject - http://code.google.com/p/swfobject/
@@ -232,7 +232,7 @@
 			
 		else if( type === "string" )
 		
-			return $this.triggerHandler( input+TUBEPLAYER, xtra || null );
+			return $this.triggerHandler( input+TUBEPLAYER, ( typeof xtra !== 'undefined' ? xtra : null ) );
 			
 	};
 	
@@ -651,7 +651,7 @@
 			if(typeof(param)==='object') 
 				p.ytplayer.loadVideoById(param.id,param.time, p.opts.preferredQuality); 
 		
-			else if(param) 
+			else if(typeof param !== 'undefined') 
 				p.ytplayer.loadVideoById(param, 0, p.opts.preferredQuality); 
 	
 			else
@@ -713,7 +713,7 @@
 		
 		volume: buildFN(function(evt,param,p){
 			
-			if(param) {
+			if(typeof param !== 'undefined') {
 				
 				p.ytplayer.setVolume(param);
 				
@@ -729,7 +729,7 @@
 		
 		quality: buildFN(function(evt,param,p){
 			
-			if(param) 
+			if(typeof param !== 'undefined') 
 				p.ytplayer.setPlaybackQuality(param); 
 				
 			else 
@@ -775,7 +775,7 @@
 		
 		size: buildFN(function(evt, param, p){
 			
-			if(param.width && param.height) { 
+			if(typeof param !== 'undefined' && param.width && param.height) { 
 				
 				p.ytplayer.setSize(param.width, param.height);
 				
