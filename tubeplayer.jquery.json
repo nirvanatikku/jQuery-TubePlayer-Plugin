@@ -1,4 +1,5 @@
 {
+  "version": "1.1.2",
   "name": "tubeplayer",
   "title": "jQuery TubePlayer",
   "description": "jQuery plugin for the YouTube Player API",
@@ -7,7 +8,9 @@
     "video",
     "media"
   ],
-  "version": "1.1.2",
+  "homepage": "tikku.com/jquery-youtube-tubeplayer-plugin",
+  "docs": "http://tikku.com/jquery-youtube-tubeplayer-plugin#tubeplayer_tutorial_3",
+  "bugs": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin/issues",
   "author": {
     "name": "Nirvana Tikku",
     "email": "ntikku@gmail.com",
@@ -20,13 +23,9 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
+      "url": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin/blob/master/LICENSE"
     }
   ],
-  "bugs": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin/issues",
-  "homepage": "tikku.com/jquery-youtube-tubeplayer-plugin",
-  "docs": "http://tikku.com/jquery-youtube-tubeplayer-plugin#tubeplayer_tutorial_3",
-  "download": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin/blob/master/jQuery.tubeplayer.js",
   "dependencies": {
     "jquery": ">=1.3"
   }
