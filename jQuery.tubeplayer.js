@@ -443,15 +443,6 @@
 	};
 	
 	/**
-	 * check to see if iframe option is plausible
-	 */
-	TubePlayer.supportsHTML5 = function(){
-		
-		return !!document.createElement('video').canPlayType;
-		
-	};
-	
-	/**
 	 * @param d - the defaults
 	 * @param o - the options w/ methods to attach
 	 */
@@ -487,7 +478,7 @@
 	 */
 	TubePlayer.initPlayer = function($player, o){
 		
-		if(o.iframed && TubePlayer.supportsHTML5())
+		if(o.iframed)
 		
 			TubePlayer.initIframePlayer($player, o);
 			
