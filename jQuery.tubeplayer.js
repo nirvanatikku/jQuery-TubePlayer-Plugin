@@ -669,6 +669,14 @@
 		}),
 		
 		seek: buildFN(function(evt,param,p){
+
+			if (/:/.test(param)) {
+				var parts = param.split(":").reverse();
+				param = 0;
+				for (var i = 0; i < parts.length; i++) {
+					param += Math.pow(60, i) * (parts[i] | 0);
+				}
+			}
 			
 			p.ytplayer.seekTo(param, true);
 			
