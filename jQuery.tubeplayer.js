@@ -118,7 +118,7 @@
 					case 101:
 					case 150: return _ret.notEmbeddable[player]();
 					
-					default: return null;
+					default: return _ret.defaultError[player]();
 					
 				}
 				
@@ -145,7 +145,7 @@
 		
 		onPlayer:{unstarted:{},ended:{},playing:{},paused:{},buffering:{},cued:{}},
 		
-		onErr:{notFound:{},notEmbeddable:{},invalidParameter:{}}
+		onErr:{defaultError:{},notFound:{},notEmbeddable:{},invalidParameter:{}}
 		
 	};
 	
@@ -205,6 +205,7 @@
 		onQualityChange: function(){},
 		
 		// error fn's
+		onError: function(){},
 		onErrorNotFound: function(){},
 		onErrorNotEmbeddable: function(){},
 		onErrorInvalidParameter: function(){}
@@ -464,6 +465,7 @@
 		
 		// default onError events
 		var de = d.onErr;
+		de.defaultError[ID] = o.onError;
 		de.notFound[ID] = o.onErrorNotFound;
 		de.notEmbeddable[ID] = o.onErrorNotEmbeddable;
 		de.invalidParameter[ID] = o.onErrorInvalidParameter;
@@ -801,7 +803,7 @@
 				delete d.onPlayer[event][p.opts.playerID];
 			});
 			    
-			events = ['notFound','notEmbeddable','invalidParameter'];
+			events = ['defaultError','notFound','notEmbeddable','invalidParameter'];
 			jQuery.each(events, function(i, event) {
 				delete d.onErr[event][p.opts.playerID];
 			});
