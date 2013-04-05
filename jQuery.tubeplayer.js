@@ -397,7 +397,7 @@
 						
 						TubePlayer.ytplayers[o.playerID] = evt.target;
 						
-						var $player = $(evt.target).parents("."+TUBE_PLAYER_CLASS);
+						var $player = $(evt.target.getIframe()).parents("."+TUBE_PLAYER_CLASS);
 						
 						$.tubeplayer.defaults.afterReady($player);
 						
@@ -811,6 +811,10 @@
 			delete d.onQualityChange[p.opts.playerID];
 			
 			delete $.tubeplayer.events[p.opts.playerID]; // flash callback ref's
+			
+			if('destroy' in p.ytplayer){
+				p.ytplayer.destroy();
+			}
 			
 			$(p.ytplayer).remove();
 			
