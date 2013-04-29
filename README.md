@@ -44,7 +44,8 @@ The TubePlayer plugin simplifies the process for developers to control and work 
     jQuery("#player").tubeplayer("play", {id: videoId, time: 0});
     jQuery("#player").tubeplayer("pause");
     jQuery("#player").tubeplayer("stop");
-    jQuery("#player").tubeplayer("seek",100);
+    jQuery("#player").tubeplayer("seek","0:32");
+    jQuery("#player").tubeplayer("seek",100); // or use seconds
     jQuery("#player").tubeplayer("mute");
     jQuery("#player").tubeplayer("unmute");
     jQuery("#player").tubeplayer("isMuted");
