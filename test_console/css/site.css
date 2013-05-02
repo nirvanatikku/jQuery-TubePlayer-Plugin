@@ -1,0 +1,10 @@
+body { margin: 50px 0px; background:#fafafa; color:#333; }
+h1 { color:#123; }
+h3 { color:#234; }
+.ui-remote { }
+.ui-remote div { margin-top:8px; }
+h3, .ui-remote { display:none; -webkit-transition:all 0.5s ease-in; }
+h3.special {display:block;}
+ul { margin:0px; list-style-type:none; }
+ul li { margin:0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.ui-current-time { padding-top:10px; padding-right:5px; color:#def; }
