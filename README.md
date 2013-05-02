@@ -2,7 +2,7 @@
 
 A jQuery wrapper around the YouTube Player API.
 
-The TubePlayer plugin simplifies the process for developers to control and work with the YouTube player. The plugin exposes methods enabling control for three cases: events triggered from the YouTube Player, meaningful player state changes, both from the 
+The TubePlayer plugin allows developers to focus on functionality as opposed to infrastructure around the YouTube player. The plugin exposes meaningful methods that are triggered based on state changes from the player API. The plugin also provides events that can be triggered on it allowing developers to create a customized player remote, programatically control videos, gain access for analytics purposes and much more. 
 
 ## Getting Started
 
