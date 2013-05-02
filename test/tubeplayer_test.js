@@ -1,5 +1,7 @@
 (function($) {
 
+	window.PlayerVolume = 0;
+
 	/**
 	 * T E S T
 	 * / / / /
@@ -32,6 +34,10 @@
 		expect(19);
 
 		$.tubeplayer.defaults.afterReady = function($player) {
+			
+			if(!window.PlayerVolume){
+				window.PlayerVolume = $player.tubeplayer('volume');
+			}
 			
 			var data = $player.tubeplayer('data');
 			equal(data.state, -1, 'is uninitialized upon creation');
@@ -74,7 +80,7 @@
 
 		$.tubeplayer.defaults.afterReady = function($player) {
 			equal($player.tubeplayer('data').state, -1, 'is uninitialized upon creation');
-			equal($player.tubeplayer('volume'), 100, 'volume is 100 to start');
+			equal($player.tubeplayer('volume'), PlayerVolume, 'volume is at default when starting');
 			equal($player.tubeplayer('isMuted'), false, 'player should not be muted');
 			start();
 		};
@@ -235,7 +241,7 @@
 
 				var vol = self.$player.tubeplayer('volume');
 
-				equal(vol, 100, "base volume is 100");
+				equal(vol, PlayerVolume, "base volume is default");
 				equal(self.$player.tubeplayer('isMuted'), false, "isn't muted yet");
 
 				self.$player.tubeplayer('mute');
