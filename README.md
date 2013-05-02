@@ -5,7 +5,6 @@ A jQuery wrapper around the YouTube Player API.
 The TubePlayer plugin simplifies the process for developers to control and work with the YouTube player. The plugin exposes methods enabling control for three cases: events triggered from the YouTube Player, meaningful player state changes, both from the 
 
 ## Getting Started
----
 
 Download the [production version][min] or the [development version][max].
 
@@ -34,7 +33,6 @@ In your web page:
 	</script>
 
 ## Documentation
----
 
 ### TubePlayer Plugin Defaults
 
@@ -155,8 +153,6 @@ jQuery("#player").tubeplayer("player");
 
 ## Examples
 
----
-
 ### Unit Tests
 
 The **test/** folder contains the unit test scripts. This is a good place to get an idea for what's going on. You can also get some insight into the things the plugin can do.
@@ -180,8 +176,6 @@ To access the debug console, navigate to	`http://localhost:8082/test_console/ind
 To access the unit tests, navigate to 		`http://localhost:8082/test/tubeplayer.html`
 
 ## Release History
-
----
 
 __v1.1.5 - Apr 29, 2013__
 
