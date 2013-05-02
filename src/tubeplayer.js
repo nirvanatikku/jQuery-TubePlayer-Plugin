@@ -1,6 +1,3 @@
-/*! jQuery TubePlayer - v1.1.5 - 2013-05-01
-* https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin
-* Copyright (c) 2013 Nirvana Tikku; Licensed MIT */
 (function($) {
 
 	'use strict';
@@ -788,11 +785,13 @@
 
 			var P = p.ytplayer;
 
-			ret.bytesLoaded = P.getVideoBytesLoaded();
+			ret.videoLoadedFraction = P.getVideoLoadedFraction();
 
-			ret.bytesTotal = P.getVideoBytesTotal();
+			ret.bytesLoaded = P.getVideoBytesLoaded(); // deprecated
 
-			ret.startBytes = P.getVideoStartBytes();
+			ret.bytesTotal = P.getVideoBytesTotal(); // deprecated
+
+			ret.startBytes = P.getVideoStartBytes(); // deprecated
 
 			ret.state = P.getPlayerState();
 
