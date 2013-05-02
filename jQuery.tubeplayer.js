@@ -1,6 +1,9 @@
 /*! jQuery TubePlayer - v1.1.5 - 2013-05-01
 * https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin
 * Copyright (c) 2013 Nirvana Tikku; Licensed MIT */
+/*! jQuery TubePlayer - v1.1.5 - 2013-05-01
+* https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin
+* Copyright (c) 2013 Nirvana Tikku; Licensed MIT */
 (function($) {
 
 	'use strict';
@@ -201,6 +204,7 @@
 		preferredQuality: "default",
 		showControls: true,
 		showRelated: false,
+		playsinline: false,
 		annotations: true,
 		autoPlay: false,
 		autoHide: true,
@@ -429,7 +433,9 @@
 
 					'theme': o.theme,
 
-					'color': o.color
+					'color': o.color,
+
+					'playsinline': o.playsinline
 
 				},
 
@@ -606,6 +612,7 @@
 			url.push("&start=" + o.start);
 			url.push("&theme=" + o.theme);
 			url.push("&color=" + o.color);
+			url.push("&playsinline=" + o.playsinline);
 			url.push("&fs=" + (o.allowFullScreen ? 1 : 0));
 
 			window.swfobject.embedSWF(url.join(""), o.playerID, o.width, o.height, "8", null, null, {

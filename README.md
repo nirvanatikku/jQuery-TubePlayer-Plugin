@@ -47,8 +47,9 @@ In your web page:
 		initialVideo: "DkoeNLuMbcI", 	// the video that is loaded into the player
 		start: 0, 
 		preferredQuality: "default",	// preferred quality: default, small, medium, large, hd720
-		showControls: 1, 				// whether the player should have the controls visible, 0 or 1
-		showRelated: 0, 				// show the related videos when the player ends, 0 or 1 
+		showControls: true, 				// whether the player should have the controls visible, 0 or 1
+		showRelated: false, 				// show the related videos when the player ends, 0 or 1 
+		playsinline: false,				// setting for ipad
 		autoPlay: false, 				// whether the player should autoplay the video, 0 or 1
 		autoHide: true, 
 		theme: "dark", 					// possible options: "dark" or "light"
@@ -192,6 +193,7 @@ __v1.1.5 - Apr 29, 2013__
 * Renamed 'tubeplayer' folder to 'test_console'
 * 'this' in onPlayer[X] and onError[X] methods, is the player with the tubeplayer interface
 * Exposed an 'opts' function to retrieve the players options
+* Added 'playsinline' option which can be used to play video inline on iPad
 
 __v1.1.0 - Oct 1, 2012__
 
