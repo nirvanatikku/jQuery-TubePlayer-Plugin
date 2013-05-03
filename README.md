@@ -14,7 +14,7 @@ Download the [production version][min] or the [development version][max].
 In your web page:
 	
 	<script src="jquery.js"></script>
-	<script src="dist/tubeplayer.min.js"></script>
+	<script src="jQuery.tubeplayer.min.js"></script>
 	<div id='player'></div>
 	<script>
 	jQuery("#player").tubeplayer({
