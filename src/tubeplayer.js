@@ -681,7 +681,7 @@
 
 		cue: wrap_fn(function(evt, param, p) {
 
-			p.ytplayer.cueVideoById(param, p.opts.preferredQuality);
+			p.ytplayer.cueVideoById(param, 0, p.opts.preferredQuality);
 
 		}),
 
