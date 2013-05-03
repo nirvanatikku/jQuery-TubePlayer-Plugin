@@ -801,7 +801,7 @@
 
 			ret.videoURL = P.getVideoUrl();
 
-			ret.getVideoEmbedCode = P.getVideoEmbedCode();
+			ret.videoEmbedCode = P.getVideoEmbedCode();
 
 			ret.videoID = TP.getVideoIDFromURL(ret.videoURL);
 
