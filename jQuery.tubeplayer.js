@@ -1,7 +1,4 @@
-/*! jQuery TubePlayer - v1.1.5 - 2013-05-01
-* https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin
-* Copyright (c) 2013 Nirvana Tikku; Licensed MIT */
-/*! jQuery TubePlayer - v1.1.5 - 2013-05-01
+/*! jQuery TubePlayer - v1.1.6 - 2013-05-02
 * https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin
 * Copyright (c) 2013 Nirvana Tikku; Licensed MIT */
 (function($) {
@@ -687,7 +684,7 @@
 
 		cue: wrap_fn(function(evt, param, p) {
 
-			p.ytplayer.cueVideoById(param, p.opts.preferredQuality);
+			p.ytplayer.cueVideoById(param, 0, p.opts.preferredQuality);
 
 		}),
 
@@ -784,6 +781,14 @@
 			else return p.ytplayer.getPlaybackQuality();
 
 		}),
+		
+		playbackRate: wrap_fn(function(evt, param, p){
+			
+			if(typeof param !== "undefined") p.ytplayer.setPlaybackRate(param);
+		
+			else return p.ytplayer.getPlaybackRate();
+			
+		}),
 
 		data: wrap_fn(function(evt, param, p) {
 
@@ -791,11 +796,13 @@
 
 			var P = p.ytplayer;
 
-			ret.bytesLoaded = P.getVideoBytesLoaded();
+			ret.videoLoadedFraction = P.getVideoLoadedFraction();
 
-			ret.bytesTotal = P.getVideoBytesTotal();
+			ret.bytesLoaded = P.getVideoBytesLoaded(); // deprecated
 
-			ret.startBytes = P.getVideoStartBytes();
+			ret.bytesTotal = P.getVideoBytesTotal(); // deprecated
+
+			ret.startBytes = P.getVideoStartBytes(); // deprecated
 
 			ret.state = P.getPlayerState();
 
@@ -805,11 +812,13 @@
 
 			ret.videoURL = P.getVideoUrl();
 
-			ret.getVideoEmbedCode = P.getVideoEmbedCode();
+			ret.videoEmbedCode = P.getVideoEmbedCode();
 
 			ret.videoID = TP.getVideoIDFromURL(ret.videoURL);
 
 			ret.availableQualityLevels = P.getAvailableQualityLevels();
+			
+			ret.availablePlaybackRates = P.getAvailablePlaybackRates();
 
 			return ret;
 
