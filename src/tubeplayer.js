@@ -778,6 +778,14 @@
 			else return p.ytplayer.getPlaybackQuality();
 
 		}),
+		
+		playbackRate: wrap_fn(function(evt, param, p){
+			
+			if(typeof param !== "undefined") p.ytplayer.setPlaybackRate(param);
+		
+			else return p.ytplayer.getPlaybackRate();
+			
+		}),
 
 		data: wrap_fn(function(evt, param, p) {
 
@@ -806,6 +814,8 @@
 			ret.videoID = TP.getVideoIDFromURL(ret.videoURL);
 
 			ret.availableQualityLevels = P.getAvailableQualityLevels();
+			
+			ret.availablePlaybackRates = P.getAvailablePlaybackRates();
 
 			return ret;
 
