@@ -180,6 +180,15 @@ To access the unit tests, navigate to 		`http://localhost:8082/test/tubeplayer.h
 
 ## Release History
 
+__v1.1.6 - May 2, 2013__
+
+* Updates to object returned by 'data' method
+	* Added 'videoLoadedFraction' - bytesLoaded, bytesTotal and startBytes are technically deprecated.
+	* Added 'availablePlaybackRates' - array of available playback rates 
+	* Changed 'getVideoEmbedCode' property -> 'videoEmbedCode'
+* Added a new method for iframe player: 'playbackRate'. Getter returns number. Setter applies to current video only. Video must support altering playbackRate in order to work. Check availablePlaybackRates in 'data'.
+* Added more unit tests including flag for testing functionality in HTML5 trial mode
+
 __v1.1.5 - Apr 29, 2013__
 
 * Added unit tests - 85 assertions
