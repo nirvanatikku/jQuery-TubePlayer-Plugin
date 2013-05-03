@@ -140,6 +140,9 @@ jQuery("#player").tubeplayer("volume",50);
 jQuery("#player").tubeplayer("quality");
 jQuery("#player").tubeplayer("quality", "hd720");
 
+jQuery("#player").tubeplayer("playbackRate"); 
+jQuery("#player").tubeplayer("playbackRate", 1.5); // video must support this
+
 jQuery("#player").tubeplayer("data");
 jQuery("#player").tubeplayer("opts");
 jQuery("#player").tubeplayer("videoId");
