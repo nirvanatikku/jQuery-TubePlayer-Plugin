@@ -594,7 +594,7 @@
 			url.push(o.initialVideo);
 			url.push("?&enablejsapi=1&version=3");
 			url.push("&playerapiid=" + o.playerID);
-			url.push("&rel= " + (o.showRelated ? 1 : 0));
+			url.push("&rel=" + (o.showRelated ? 1 : 0));
 			url.push("&autoplay=" + (o.autoPlay ? 1 : 0));
 			url.push("&autohide=" + (o.autoHide ? 1 : 0));
 			url.push("&loop=" + (o.loop ? 1 : 0));
