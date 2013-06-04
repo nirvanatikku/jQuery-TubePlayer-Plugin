@@ -44,7 +44,7 @@ In your web page:
 		allowFullScreen: "true", 		// true by default, allow user to go full screen
 		initialVideo: "DkoeNLuMbcI", 	// the video that is loaded into the player
 		start: 0, 
-		preferredQuality: "default",	// preferred quality: default, small, medium, large, hd720
+		preferredQuality: "auto",	// preferred quality: auto, small, medium, large, hd720
 		showControls: true, 				// whether the player should have the controls visible, 0 or 1
 		showRelated: false, 				// show the related videos when the player ends, 0 or 1 
 		playsinline: false,				// setting for ipad

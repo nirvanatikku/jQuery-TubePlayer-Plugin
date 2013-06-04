@@ -195,7 +195,7 @@
 		allowFullScreen: "true",
 		initialVideo: "DkoeNLuMbcI",
 		start: 0,
-		preferredQuality: "default",
+		preferredQuality: "auto",
 		showControls: true,
 		showRelated: false,
 		playsinline: false,

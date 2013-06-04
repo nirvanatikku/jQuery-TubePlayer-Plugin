@@ -1,4 +1,4 @@
-/*! jQuery TubePlayer - v1.1.6 - 2013-05-12
+/*! jQuery TubePlayer - v1.1.6 - 2013-06-04
 * https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin
 * Copyright (c) 2013 Nirvana Tikku; Licensed MIT */
 (function($) {
@@ -198,7 +198,7 @@
 		allowFullScreen: "true",
 		initialVideo: "DkoeNLuMbcI",
 		start: 0,
-		preferredQuality: "default",
+		preferredQuality: "auto",
 		showControls: true,
 		showRelated: false,
 		playsinline: false,
