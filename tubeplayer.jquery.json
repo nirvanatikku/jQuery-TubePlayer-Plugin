@@ -2,7 +2,7 @@
   "name": "tubeplayer",
   "title": "jQuery TubePlayer",
   "description": "jQuery plugin for the YouTube Player API",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "homepage": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin",
   "docs": "http://tikku.com/jquery-youtube-tubeplayer-plugin#tubeplayer_tutorial_3",
   "bugs": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin/issues",

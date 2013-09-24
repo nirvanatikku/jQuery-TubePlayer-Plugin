@@ -1,4 +1,4 @@
-/*! jQuery TubePlayer - v1.1.6 - 2013-06-04
+/*! jQuery TubePlayer - v1.1.7 - 2013-09-24
 * https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin
 * Copyright (c) 2013 Nirvana Tikku; Licensed MIT */
 (function($) {
@@ -690,9 +690,9 @@
 
 		play: wrap_fn(function(evt, param, p) {
 
-			if (typeof(param) === 'object') p.ytplayer.loadVideoById(param.id, param.time, p.opts.preferredQuality);
+			if (typeof(param) === 'object') p.ytplayer.loadVideoById({videoId: param.id, startSeconds: param.time, suggestedQuality: p.opts.preferredQuality });
 
-			else if (typeof param !== 'undefined') p.ytplayer.loadVideoById(param, 0, p.opts.preferredQuality);
+			else if (typeof param !== 'undefined') p.ytplayer.loadVideoById({videoId: param, startSeconds: 0, suggestedQuality: p.opts.preferredQuality });
 
 			else p.ytplayer.playVideo();
 

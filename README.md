@@ -2,14 +2,14 @@
 
 A jQuery wrapper around the YouTube Player API.
 
-The TubePlayer plugin allows developers to focus on functionality as opposed to infrastructure around the YouTube player. The plugin exposes meaningful methods that are triggered based on state changes from the player API. The plugin also provides events that can be triggered on it allowing developers to create a customized player remote, programatically control videos, gain access for analytics purposes and much more. 
+The TubePlayer plugin allows developers to focus on functionality as opposed to infrastructure around the YouTube player. The plugin exposes meaningful methods that are triggered based on state changes from the player API. The plugin also provides events that can be triggered on it allowing developers to create a customized player remote, programmatically control videos, gain access for analytics purposes and much more. 
 
 ## Getting Started
 
 Download the [production version][min] or the [development version][max].
 
-[min]: https://raw.github.com/nirvanatikku/jQuery-TubePlayer-Plugin/master/dist/tubeplayer.min.js
-[max]: https://raw.github.com/nirvanatikku/jQuery-TubePlayer-Plugin/master/dist/tubeplayer.js
+[min]: https://raw.github.com/nirvanatikku/jQuery-TubePlayer-Plugin/master/jQuery.tubeplayer.min.js
+[max]: https://raw.github.com/nirvanatikku/jQuery-TubePlayer-Plugin/master/jQuery.tubeplayer.js
 
 In your web page:
 	
@@ -179,6 +179,10 @@ To access the debug console, navigate to	`http://localhost:8082/test_console/ind
 To access the unit tests, navigate to 		`http://localhost:8082/test/tubeplayer.html`
 
 ## Release History
+
+__v1.1.7 - Sept 24, 2013__
+
+* Use object syntax instead of argument syntax for *loadVideoById* method call
 
 __v1.1.6 - May 2, 2013__
 
