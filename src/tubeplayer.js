@@ -687,9 +687,9 @@
 
 		play: wrap_fn(function(evt, param, p) {
 
-			if (typeof(param) === 'object') p.ytplayer.loadVideoById(param.id, param.time, p.opts.preferredQuality);
+			if (typeof(param) === 'object') p.ytplayer.loadVideoById({videoId: param.id, startSeconds: param.time, suggestedQuality: p.opts.preferredQuality });
 
-			else if (typeof param !== 'undefined') p.ytplayer.loadVideoById(param, 0, p.opts.preferredQuality);
+			else if (typeof param !== 'undefined') p.ytplayer.loadVideoById({videoId: param, startSeconds: 0, suggestedQuality: p.opts.preferredQuality });
 
 			else p.ytplayer.playVideo();
 
