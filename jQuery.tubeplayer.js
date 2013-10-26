@@ -14,22 +14,22 @@
 
 		OPTS = "opts" + TUBEPLAYER;
 
-	//	
 	//
-	// TubePlayer package 
+	//
+	// TubePlayer package
 	//
 	//
 	var TP = {
-		
+
 		inited: false,				// tubeplayer inited flag - for destroy/re-init
-		
+
 		ytplayers: {},				// all the instances that exist
-		
+
 		inits: [],					// local init functions for multiple iframe players
-		
+
 		iframeScriptInited: false,	// no need to import the iframe script multiple times
-		
-		State: { 
+
+		State: {
 			'UNSTARTED': -1,
 			'ENDED': 0,
 			'PLAYING': 1,
@@ -37,7 +37,7 @@
 			'BUFFERING': 3,
 			'CUED': 5
 		},
-		
+
 		Error: {
 			'BAD_INIT': 0,
 			'INVALID_PARAM': 2,
@@ -45,7 +45,7 @@
 			'NOT_EMBEDDABLE': 101,
 			'CANT_PLAY': 150
 		}
-		
+
 	};
 
 	//
@@ -54,11 +54,11 @@
 	//
 	//
 	$.tubeplayer = {
-		
+
 		events: {},				// events cache -- used by flashplayer version of video player
-		
+
 		TubePlayer: TP			// reference to the internal TubePlayer object. primarily exposed for testing.
-		
+
 	};
 
 	/**
@@ -80,7 +80,7 @@
 			return function(state) {
 
 				var _player = $('#'+player).parent();
-			
+
 				if (typeof(state) === "object") {
 					state = state.data;
 				}
@@ -118,7 +118,7 @@
 			var _ret = this.onErr;
 
 			return function(errorCode) {
-				
+
 				var _player = $('#'+player).parent();
 
 				if (typeof(errorCode) === "object") {
@@ -152,7 +152,7 @@
 			var _this = this;
 
 			return function(suggested) {
-				
+
 				var _player = $('#'+player).parent();
 
 				if (typeof(suggested) === "object") {
@@ -267,15 +267,58 @@
 		if (arguments.length === 0 || type === "object") {
 
 			return $this.each(function() {
+				$this = $(this);
+				// check if the current element is an iframe and if so replace it with a div
+				// Mihai Ionut Vilcu - 26/Oct/2013
+				if($this.prop('tagName') == "IFRAME") {
+					// make sure we have a valid YT url
+		            var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
 
-				TP.init($(this), input);
+		            var match = $this.attr('src').match(regExp);
 
+		            if (match&&match[7].length==11) { // we have the id
+
+		            	var settings = {initialVideo : match[7]},
+		            		class_name = $this.attr('class'),
+		            		ids = $this.attr('id');
+
+		            	// check for extra settings
+						if($this.attr('width'))
+							settings.width = $this.attr('width');
+
+						if($this.attr('height'))
+							settings.height = $this.attr('height');
+
+						if($this.attr('allowfullscreen') != undefined)
+							settings.allowFullScreen = "true";
+						else
+							settings.allowFullScreen = false;
+
+		            	var newDiv = $("<div></div>").attr({
+		            		'class' : class_name ? class_name : '',
+		            		'id' : ids ? ids : '',
+		            	});
+
+		            	$this.replaceWith(newDiv);
+
+		            	var new_input = $.extend({}, defaults, settings, input);
+
+						TP.init(newDiv, new_input);
+
+		            }
+
+				} else {
+
+					TP.init($(this), input);
+				}
 			});
 
 		} else if (type === "string") {
 
-			return $this.triggerHandler(input + TUBEPLAYER, (typeof xtra !== 'undefined' ? xtra : null));
-		
+			return $this.each(function(index, el) { // handle multiple elemnts
+				$(this).triggerHandler(input + TUBEPLAYER, (typeof xtra !== 'undefined' ? xtra : null));
+			});
+
 		}
 
 	};
@@ -586,9 +629,9 @@
 	TP.init_flash_player = function(o) {
 
 		return function() {
-			
+
 			if(!window.swfobject){
-				// no swfobject 
+				// no swfobject
 				alert("YouTube Player couldn't be initialized. Please include swfobject.");
 				return;
 			}
@@ -675,11 +718,11 @@
 	 * All the events that are bound to a TubePlayer instance
 	 */
 	var PLAYER = {
-		
+
 		opts: wrap_fn(function(evt,param,p){
-			
+
 			return p.opts;
-			
+
 		}),
 
 		cue: wrap_fn(function(evt, param, p) {
@@ -769,7 +812,7 @@
 			} else {
 
 				return p.ytplayer.getVolume() || 0; // 0 because iframe's currently in labs
-				
+
 			}
 
 		}),
@@ -781,13 +824,13 @@
 			else return p.ytplayer.getPlaybackQuality();
 
 		}),
-		
+
 		playbackRate: wrap_fn(function(evt, param, p){
-			
+
 			if(typeof param !== "undefined") p.ytplayer.setPlaybackRate(param);
-		
+
 			else return p.ytplayer.getPlaybackRate();
-			
+
 		}),
 
 		data: wrap_fn(function(evt, param, p) {
@@ -817,7 +860,7 @@
 			ret.videoID = TP.getVideoIDFromURL(ret.videoURL);
 
 			ret.availableQualityLevels = P.getAvailableQualityLevels();
-			
+
 			ret.availablePlaybackRates = P.getAvailablePlaybackRates();
 
 			return ret;
@@ -843,7 +886,7 @@
 		}),
 
 		destroy: wrap_fn(function(evt, param, p) {
-			
+
 			p.$player.removeClass(TUBEPLAYER_CLASS).data(OPTS, null).unbind(TUBEPLAYER).html("");
 
 			delete TP.ytplayers[p.opts.playerID];
