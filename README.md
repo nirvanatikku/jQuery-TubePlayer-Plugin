@@ -88,7 +88,7 @@ In your web page:
 		onErrorNotEmbeddable: function(){}, // if a video isnt embeddable
 		onErrorInvalidParameter: function(){} // if we've got an invalid param
 		
-	});
+	};
 
 
 ### Player API Events (tubeplayer options)
