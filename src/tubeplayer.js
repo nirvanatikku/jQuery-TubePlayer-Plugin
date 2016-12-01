@@ -209,7 +209,7 @@
 		// 'red' or 'white'
 		showinfo: false,
 		modestbranding: true,
-		protocol: 'http',
+		protocol: window.location.protocol == "https:" ? "https" : "http",
 		// set to 'https' for compatibility on SSL-enabled pages
 		// with respect to [wmode] - 'transparent' maintains z-index, but disables GPU acceleration
 		wmode: 'transparent',
@@ -586,7 +586,10 @@
 			
 			if(!window.swfobject){
 				// no swfobject 
+				// stop JSHint from complaining about the alert
+				/*jshint devel:true */
 				alert("YouTube Player couldn't be initialized. Please include swfobject.");
+				/*jshint devel:false */
 				return;
 			}
 
