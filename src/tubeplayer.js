@@ -33,7 +33,6 @@
 	//
 	// public facing defaults
 	$.tubeplayer = {
-		events: {},				// events cache -- used by flashplayer version of video player
 		TubePlayer: TP			// reference to the internal TubePlayer object. primarily exposed for testing.
 	};
 
@@ -137,34 +136,19 @@
 		initialVideo: "DkoeNLuMbcI",
 		start: 0,
 		preferredQuality: "auto",
-		showControls: true,
+		controls: 1,
 		showRelated: false,
 		playsinline: false,
 		annotations: true,
 		autoPlay: false,
-		autoHide: true,
 		loop: 0,
-		theme: 'dark',
-		// 'dark' or 'light'
-		color: 'red',
-		// 'red' or 'white'
+		color: 'red', // 'red' or 'white'
 		showinfo: false,
 		modestbranding: true,
 		protocol: window.location.protocol == "https:" ? "https" : "http",
 		// set to 'https' for compatibility on SSL-enabled pages
-		// with respect to [wmode] - 'transparent' maintains z-index, but disables GPU acceleration
-		wmode: 'transparent',
-		// you probably want to use 'window' when optimizing for mobile devices
-		swfobjectURL: "ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js",
-		// exclude the protocol, it will be read from the 'protocol' property
-		loadSWFObject: false,
-		// by default, we will attempt to load the swfobject script, if utilizing the flash player
-		// privately used
 		allowScriptAccess: "always",
 		playerID: "tubeplayer-player-container",
-
-		// html5 specific attrs
-		iframed: true,
 
 		// functions called when events are triggered by using the tubeplayer interface
 		onPlay: function() {}, // arg: id
@@ -279,7 +263,7 @@
 	 *		> provide local data access to the options and store it
 	 *		> initialize the default events on the jQuery instance
 	 *		> create the container for the player
-	 *		> initialize the player (iframe/HTML5 vs flash based)
+	 *		> initialize the player (iframe/HTML5 based)
 	 *
 	 *	@param $player - the instance being created on
 	 *	@param opts - the user's options
@@ -331,20 +315,18 @@
 				height: o.height,
 				playerVars: {
 					'autoplay': (o.autoPlay ? 1 : 0),
-					'autohide': (o.autoHide ? 1 : 0),
-					'controls': (o.showControls ? 1 : 0),
+					'controls': (o.controls ? o.controls : 0),
 					'loop': (o.loop ? 1 : 0),
-					'playlist': (o.loop ? o.initialVideo : ""),
+					'playlist': (o.playlist ? o.playlist : 0),
 					'rel': (o.showRelated ? 1 : 0),
 					'fs': (o.allowFullScreen ? 1 : 0),
-					'wmode': o.wmode,
 					'showinfo': (o.showinfo ? 1 : 0),
 					'modestbranding': (o.modestbranding ? 1 : 0),
 					'iv_load_policy': (o.annotations ? 1 : 3),
 					'start': o.start,
-					'theme': o.theme,
 					'color': o.color,
-					'playsinline': o.playsinline
+					'playsinline': o.playsinline,
+					'origin': window.location.origin
 				},
 				events: {
 					'onReady': function(evt) {
@@ -406,23 +388,11 @@
 	};
 
 	/**
-	 * init the iframed option if its requested and supported
-	 * otherwise initialize the flash based player
+	 * Init the iframe player
 	 * @param $player - the player that the tubeplayer binds to
 	 * @param o - the init options
 	 */
 	TP.initPlayer = function($player, o) {
-
-		if (o.iframed) TP.initIframePlayer($player, o);
-
-		else TP.initFlashPlayer($player, o);
-
-	};
-
-	/**
-	 * Initialize an iframe player
-	 */
-	TP.initIframePlayer = function($player, o) {
 		if (!TP.iframeScriptInited) {
 			// write the api script tag
 			var tag = document.createElement('script');
@@ -433,86 +403,6 @@
 		}
 		// init the iframe player
 		window.onYouTubePlayerAPIReady = TP.iframeReady(o);
-	};
-
-	/**
-	 * Flash player initialization
-	 *  -> if 'loadSWFObject' is set to true, player will only be init'd
-	 *      when the swfobject script request has completed successfully
-	 *  -> if 'loadSWFObject' is set to false, assumes that you have
-	 *      imported your own SWFObject, prior to TubePlayer's initialization
-	 * @imports swfobject automatically
-	 */
-	TP.initFlashPlayer = function($player, o) {
-		if (o.loadSWFObject) {
-			// cleanup swfobjectURL to re-apply the protocol
-			o.swfobjectURL = o.swfobjectURL.replace('http://', '');
-			o.swfobjectURL = o.swfobjectURL.replace('https://', '');
-			o.swfobjectURL = o.protocol + '://' + o.swfobjectURL;
-			$.getScript(o.swfobjectURL, TP.init_flash_player(o));
-		} else {
-			TP.init_flash_player(o)();
-		}
-	};
-
-	TP.init_flash_player = function(o) {
-
-		return function() {
-			
-			if(!window.swfobject){
-				// no swfobject 
-				// stop JSHint from complaining about the alert
-				/*jshint devel:true */
-				alert("YouTube Player couldn't be initialized. Please include swfobject.");
-				/*jshint devel:false */
-				return;
-			}
-
-			var url = ["//www.youtube.com/v/"];
-			url.push(o.initialVideo);
-			url.push("?&enablejsapi=1&version=3");
-			url.push("&playerapiid=" + o.playerID);
-			url.push("&rel=" + (o.showRelated ? 1 : 0));
-			url.push("&autoplay=" + (o.autoPlay ? 1 : 0));
-			url.push("&autohide=" + (o.autoHide ? 1 : 0));
-			url.push("&loop=" + (o.loop ? 1 : 0));
-			url.push("&playlist=" + (o.loop ? o.initialVideo : ""));
-			url.push("&controls=" + (o.showControls ? 1 : 0));
-			url.push("&showinfo=" + (o.showinfo ? 1 : 0));
-			url.push("&modestbranding=" + (o.modestbranding ? 1 : 0));
-			url.push("&iv_load_policy=" + (o.annotations ? 1 : 3));
-			url.push("&start=" + o.start);
-			url.push("&theme=" + o.theme);
-			url.push("&color=" + o.color);
-			url.push("&playsinline=" + o.playsinline);
-			url.push("&fs=" + (o.allowFullScreen ? 1 : 0));
-
-			window.swfobject.embedSWF(url.join(""), o.playerID, o.width, o.height, "8", null, null, {
-				allowScriptAccess: o.allowScriptAccess,
-				wmode: o.wmode,
-				allowFullScreen: o.allowFullScreen
-			}, {
-				id: o.playerID
-			});
-
-			// init the player ready fn
-			window.onYouTubePlayerReady = function(playerId) {
-				var player = document.getElementById(playerId);
-				var pid = playerId.replace(/-/g, '');
-				var d = $.tubeplayer.defaults;
-				$.tubeplayer.events[pid] = {
-					"stateChange": d.stateChange(playerId),
-					"error": d.onError(playerId),
-					"qualityChange": d.qualityChange(playerId)
-				};
-				player.addEventListener("onStateChange", "$.tubeplayer.events." + pid + ".stateChange");
-				player.addEventListener("onError", "$.tubeplayer.events." + pid + ".error");
-				player.addEventListener("onPlaybackQualityChange", "$.tubeplayer.events." + pid + ".qualityChange");
-				TP.ytplayers[playerId] = player;
-				var $player = $(player).parents("." + TUBEPLAYER_CLASS);
-				$.tubeplayer.defaults.afterReady($player);
-			};
-		};
 	};
 
 	// fmt: youtube.com/watch?x=[anything]&v=[desired-token]&
@@ -641,7 +531,6 @@
 				delete d.onErr[event][p.opts.playerID];
 			});
 			delete d.onQualityChange[p.opts.playerID];
-			delete $.tubeplayer.events[p.opts.playerID]; // flash callback ref's
 			if ('destroy' in p.ytplayer) {
 				p.ytplayer.destroy();
 			}
