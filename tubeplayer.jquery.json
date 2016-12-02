@@ -1,6 +1,6 @@
 {
-  "name": "jquery-tubeplayer-plugin",
-  "title": "jQuery TubePlayer Plugin",
+  "name": "tubeplayer",
+  "title": "jQuery TubePlayer - Simplified YouTube Player Management",
   "description": "Simplified management of embedded YouTube players",
   "version": "2.0.0-beta",
   "homepage": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin",
