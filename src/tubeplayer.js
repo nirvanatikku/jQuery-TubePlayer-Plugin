@@ -440,17 +440,62 @@
 		cue: wrap_fn(function(evt, param, p) {
 			p.ytplayer.cueVideoById(param, 0, p.opts.preferredQuality);
 		}),
+		cuePlaylist: wrap_fn(function(evt, param, p){
+			p.ytplayer.cuePlaylist(param.playlist, 
+				param.index || 0, 
+				param.startSeconds || 0, 
+				p.opts.preferredQuality);
+		}),
 		play: wrap_fn(function(evt, param, p) {
+			var videoId, startTime;
 			if (typeof(param) === 'object') {
-				p.ytplayer.loadVideoById({videoId: param.id, startSeconds: param.time, suggestedQuality: p.opts.preferredQuality });
+				videoId = param.id;
+				startTime = param.time;
 			}
 			else if (typeof param !== 'undefined') {
-				p.ytplayer.loadVideoById({videoId: param, startSeconds: 0, suggestedQuality: p.opts.preferredQuality });
+				videoId = param;
+				startTime = 0;
+			}
+			if(videoId){
+				p.ytplayer.loadVideoById({
+					videoId: videoId, 
+					startSeconds: startTime,
+					suggestedQuality: p.opts.preferredQuality 
+				});
 			}
 			else {
 				p.ytplayer.playVideo();
 			}
 			p.opts.onPlay(param);
+		}),
+		playPlaylist: wrap_fn(function(evt, param, p){
+			var playlist, playlistIndex, startTime;
+			if (typeof(param) === 'object') {
+				var isArray = param.length !== undefined;
+				playlist = isArray ? param : param.playlist;
+				startTime = isArray ? 0 : (param.time || 0);
+				playlistIndex = isArray ? 0 : (param.index || 0);
+			}
+			else if (typeof param !== 'undefined') {
+				playlist = param;
+				startTime = 0;
+				playlistIndex = 0;
+			} 
+			if(playlist){
+				p.ytplayer.loadPlaylist(playlist, playlistIndex, 
+					startTime, 
+					p.opts.preferredQuality);
+				p.opts.onPlay(param);
+			}
+		}),
+		next: wrap_fn(function(evt, param, p){
+			p.ytplayer.nextVideo();
+		}),
+		previous: wrap_fn(function(evt, param, p){
+			p.ytplayer.previousVideo();
+		}),
+		playVideoAt: wrap_fn(function(evt, param, p){
+			p.ytplayer.playVideoAt(param);
 		}),
 		pause: wrap_fn(function(evt, param, p) {
 			p.ytplayer.pauseVideo();
@@ -489,16 +534,25 @@
 				p.ytplayer.setVolume(param);
 				p.$player.attr("data-prev-mute-volume", p.ytplayer.getVolume());
 			} else {
-				return p.ytplayer.getVolume() || 0; // 0 because iframe's currently in labs
+				return p.ytplayer.getVolume();
 			}
 		}),
 		quality: wrap_fn(function(evt, param, p) {
-			if (typeof param !== 'undefined') p.ytplayer.setPlaybackQuality(param);
-			else return p.ytplayer.getPlaybackQuality();
+			// param = ['small', 'medium', 'large', 'hd720', 'hd1080', 'highres', 'default']
+			if (typeof param !== 'undefined') {
+				p.ytplayer.setPlaybackQuality(param);
+			}
+			else {
+				return p.ytplayer.getPlaybackQuality();
+			}
 		}),
 		playbackRate: wrap_fn(function(evt, param, p){
-			if(typeof param !== "undefined") p.ytplayer.setPlaybackRate(param);
-			else return p.ytplayer.getPlaybackRate();
+			if(typeof param !== "undefined") {
+				p.ytplayer.setPlaybackRate(param);
+			}
+			else {
+				return p.ytplayer.getPlaybackRate();
+			}
 		}),
 		data: wrap_fn(function(evt, param, p) {
 			var ret = {};
@@ -511,6 +565,10 @@
 			ret.currentTime = P.getCurrentTime();
 			ret.duration = P.getDuration();
 			ret.videoURL = P.getVideoUrl();
+			ret.playlist = {
+				videoIDs: P.getPlaylist(),
+				currentIndex: P.getPlaylistIndex()
+			};
 			ret.videoEmbedCode = P.getVideoEmbedCode();
 			ret.videoID = TP.getVideoIDFromURL(ret.videoURL);
 			ret.availableQualityLevels = P.getAvailableQualityLevels();
