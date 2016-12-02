@@ -15,14 +15,14 @@ In your web page:
 	
 ```html
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-tubeplayer/2.0.0-beta/jquery.tubeplayer.min.js"></script>
+<script src="//raw.githubusercontent.com/nirvanatikku/jQuery-TubePlayer-Plugin/master/dist/jquery.tubeplayer.min.js"></script>
 <div id='youtube-video-player'></div>
 <script type="text/javascript">
 jQuery(document).ready(function(){
 	jQuery("#youtube-video-player").tubeplayer({
 		width: 600, // the width of the player
 		height: 450, // the height of the player
-		initialVideo: "[some video id]", // the video that is loaded into the player
+		initialVideo: "kOkQ4T5WO9E", // the video that is loaded into the player
 		onPlay: function(id){}, // after the play method is called
 		onPause: function(){}, // after the pause method is called
 		onStop: function(){}, // after the player is stopped
@@ -129,10 +129,10 @@ jQuery("#player").tubeplayer("play", {id: videoId, time: 0});
 jQuery("#player").tubeplayer("pause");
 jQuery("#player").tubeplayer("stop");
 
-jQuery("#player").tubeplayer("seek","0:32");
-jQuery("#player").tubeplayer("seek",100); // or use seconds
+jQuery("#player").tubeplayer("seek", "0:32");
+jQuery("#player").tubeplayer("seek", 100); // or use seconds
 
-jQuery("#player").tubeplayer("size",{width:400,height:300});
+jQuery("#player").tubeplayer("size", {width:400,height:300});
 
 jQuery("#player").tubeplayer("destroy");
 

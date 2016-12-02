@@ -1,13 +1,13 @@
 # Changelog
 
-__v2.0.0 - Dec XX, 2016__
+__v2.0.0 - Dec 2, 2016__
 
 * Removed code to handle flash player (due to deprecation); instead - uses iframe player exclusively
 * Added playlist support for "playPlaylist", "cuePlaylist", "next", "previous", "playVideoAt"
 * Added support for rate change events "onRateChange"
 * Improved support for multiple tubeplayer instances
 * Support providing a list of Video IDs in the `playlist` property
-* Property `showControls` is no longer a boolean - ther property is `controls` now: 0=none, 1=immediate, 2=lazy
+* Property `showControls` is no longer a boolean - the property is `controls` now: 0=none, 1=immediate, 2=lazy
 * Property `autoHide` has been deprecated and is no longer used
 * Property `theme` has been deprecated; players always use the dark theme
 * Improved security by adding `origin` (window.location.origin)
