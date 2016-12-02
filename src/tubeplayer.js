@@ -102,7 +102,18 @@
 				return _this.onQualityChange[player].call(_player, suggested);
 			};
 		},
+		rateChange: function(player){
+			var _this = this;
+			return function(suggested) {
+				var _player = $('#'+player).parent();
+				if (typeof(suggested) === "object") {
+					suggested = suggested.data;
+				}
+				return _this.onRateChange[player].call(_player, suggested);
+			};
+		},
 		onQualityChange: {},
+		onRateChange: {},
 		onPlayer: {
 			unstarted: {},
 			ended: {},
@@ -162,6 +173,7 @@
 		onPlayerBuffering: function() {},
 		onPlayerCued: function() {},
 		onQualityChange: function() {},
+		onRateChange: function() {},
 
 		// functions called when errors are thrown from the youtube player
 		onError: function() {},
@@ -330,6 +342,7 @@
 						$.tubeplayer.defaults.afterReady($player);
 					},
 					'onPlaybackQualityChange': $.tubeplayer.defaults.qualityChange(o.playerID),
+					'onPlaybackRateChange': $.tubeplayer.defaults.rateChange(o.playerID),
 					'onStateChange': $.tubeplayer.defaults.stateChange(o.playerID),
 					'onError': $.tubeplayer.defaults.onError(o.playerID)
 				}
@@ -372,6 +385,7 @@
 
 		// default onQualityChange
 		d.onQualityChange[ID] = o.onQualityChange;
+		d.onRateChange[ID] = o.onRateChange;
 
 		// default onError events
 		var de = d.onErr;
@@ -526,6 +540,7 @@
 				delete d.onErr[event][p.opts.playerID];
 			});
 			delete d.onQualityChange[p.opts.playerID];
+			delete d.onRateChange[p.opts.playerID];
 			if ('destroy' in p.ytplayer) {
 				p.ytplayer.destroy();
 			}
