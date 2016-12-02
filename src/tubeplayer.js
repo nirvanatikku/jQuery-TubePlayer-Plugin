@@ -81,11 +81,11 @@
 				switch (errorCode) {
 					case TP.Error.BAD_INIT:
 					case TP.Error.INVALID_PARAM:
+					case TP.Error.CANT_PLAY:
 						return _ret.invalidParameter[player].call(_player);
 					case TP.Error.NOT_FOUND:
 						return _ret.notFound[player].call(_player);
 					case TP.Error.NOT_EMBEDDABLE:
-					case TP.Error.CANT_PLAY:
 						return _ret.notEmbeddable[player].call(_player);
 					default:
 						return _ret.defaultError[player].call(_player);
