@@ -4,197 +4,226 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title></title>
-	<meta name="description" content="The TubePlayer console enables developers to customize and play with the YouTube player via the tubeplayer plugin API.">
-	<meta name="author" content="Nirvana Tikku, ntikku@gmail.com, @ntikku">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="description" content="The TubePlayer console enables developers to customize and manage the YouTube player via the tubeplayer plugin API.">
+    <meta name="author" content="Nirvana Tikku, tikku.com, @ntikku">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- 
-		STYLES
-	-->
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/bootstrap.css"> <!--.min.css; need to pull this out? -->	
-	<link rel="stylesheet" href="css/bootstrap-responsive.css">
-	<link rel="stylesheet" href="css/site.css">
-	
-	<!-- 
-		SCRIPTS
-	-->
-	<!--  -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-	<script src="js/libs/require.2.js" data-main="js/main"></script>
-	<script src="js/libs/modernizr-2.5.3.min.js"></script>
-	<script src="js/libs/less-1.3.0.min.js"></script>
-	<script type="text/javascript">
-	  require.config({
-	    	baseUrl: "js/",
-		    paths: {
-				"jquery": [
-					"libs/jquery-1.7.2.min" // fallback
-				],
-				"backbone": 			"libs/backbone.0.9.2",
-				"underscore": 			"libs/underscore.1.3.3", 
-				"bootstrap": 			"libs/bootstrap",
-				"less": 				"libs/less-1.3.0.min",
-				"moment": 				"libs/moment",
-				"tubeplayer": 			"../../src/tubeplayer",
-				"mCommand": 			"models/command", 
-				"mTubeplayerInfo": 		"models/tubeplayer-info",
-				"vCommand": 			"views/command",
-				"vTubeplayerInfo": 		"views/tubeplayer-info",
-		    },
-			shim: { 
-				'backbone': { 
-					deps: ['underscore', 'jquery']
-				},
-				'tubeplayer': { 
-					deps: ['jquery']
-				}
-			}
-	  });
-	</script>
+    <!-- STYLES -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <style>
+    code { color: #003940; background: transparent; }
+    .ui-remote,
+    .control-center { display: none; }
+    .btn code { background: transparent; color:#fff; }
+    .navbar-collapse { background: #f3f3f3; }
+    .btn-block { text-align:left; }
+    .btn-danger code,
+    .btn-link code { float:right; }
+    .btn-link code { color:#111; }
+    .btn-danger code { color:#fefefe; }
+    </style>
+    
+    <!-- SCRIPTS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js"></script>
+    <script src="../../src/tubeplayer.js"></script>
+
 </head>
 <body>
 <header>
 
 </header>
 <div role="main">
-	
-	<div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">jQuery YouTube Tubeplayer Plugin</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-			  <li><a href="../test/tubeplayer.html">Unit Tests</a></li>
-              <li><a href="http://www.tikku.com/jQuery-youtube-tubeplayer-plugin#tubeplayer_tutorial_3">TubePlayer API</a></li>
-			  <li><a href="https://developers.google.com/youtube/js_api_reference#Overview">YouTube Player API</a></li>
-              <li><a href="https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin">GitHub</a></li>
-			  <li><a href="mailto:ntikku@gmail.com">Contact/Email Nirvana Tikku</a></li>
-			  
-            </ul>
-			<div id="js-current-time" class="pull-right ui-current-time"></div>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
+    
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#"><strong>jQuery YouTube TubePlayer Plugin V2.0</strong></a></li>
+        <li><a href="../test/tubeplayer.html">Unit Tests</a></li>
+        <li><a href="http://www.tikku.com/jQuery-youtube-tubeplayer-plugin/api">TubePlayer API</a></li>
+        <li><a href="https://developers.google.com/youtube/iframe_api_reference">YouTube Player API</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin">GitHub</a></li>
+        <li><a href="mailto:ntikku@gmail.com">Contact/Email Author</a></li>
+        <li><a href="#"><div id="js-current-time" class="pull-right ui-current-time"></div></a></li>
+      </ul>
     </div>
 
     <div class="container">
 
-      <h1>TubePlayer Console</h1>
+        <div class="row">
+            <div class="tubeplayer-inits-form js-tubeplayer-inits-form">
+                <h2>jQuery TubePlayer Plugin: YouTube Player Settings</h2>
+                <p class="help-block">
+                    The plugin manages a YouTube video. When instantiating the YouTube video player, the following settings are provided in addition to callback listeners.
+                </p>
+                <hr/>
+                <form onSubmit="return false;" class="form">
 
-		<div class="row">
-			 <div class="span4">
-				<h3>TubePlayer</h3>
-					<div class="tubeplayer-inits-form js-tubeplayer-inits-form">
-						<form onSubmit="return false;">
-							<legend>TubePlayer Initialization Options</legend>
-								<label class="checkbox">
-							    	<input type="checkbox" name="js-iframed" checked> HTML5 Version
-							  	</label>
-							  <label>Initial Video ID</label>
-							  <input type="text" name="js-initial-video-id" placeholder="VideoID…" value="HHQ7sdq0Qow">
-								<div class="control-group">
-							    	<div class="controls">
-							  			<label>Theme</label>
-										<select name="js-theme">
-										  <option selected>dark</option>
-										  <option>light</option>
-										</select>
-										<label>Color</label>
-										<select name="js-color">
-										  <option selected>red</option>
-										  <option>white</option>
-										</select>
-										<label>Protocol</label>
-										<select name="js-protocol">
-										  <option selected>http</option>
-										  <option>https</option>
-										</select>
-										<label>Preferred Qualty</label>
-										<select name="js-pref-qual">
-										  	<option selected>default</option>
-										  	<option>small</option>
-											<option>medium</option>
-											<option>large</option>
-											<option>hd720</option>
-											<option>hd1080</option>
-											<option>highres</option>
-										</select>
-									</div>
-								</div>
-								<div class="control-group">
-							    	<div class="controls">
-										<label class="checkbox">
-											<input type="checkbox" name="js-allow-full-screen" checked> Allow Full Screen
-										</label>
-										<label class="checkbox">
-											<input type="checkbox" name="js-show-controls" checked> Show Controls
-										</label>
-										<label class="checkbox">
-											<input type="checkbox" name="js-show-related"> Show Related
-										</label>
-										<label class="checkbox">
-											<input type="checkbox" name="js-annotations" checked> Show Annotations
-										</label>
-										<label class="checkbox">
-											<input type="checkbox" name="js-auto-play"> Auto Play
-										</label>
-										<label class="checkbox">
-											<input type="checkbox" name="js-auto-hide" checked> Auto Hide
-										</label>
-										<label class="checkbox">
-											<input type="checkbox" name="js-show-info"> Show Info
-										</label>
-										<label class="checkbox">
-											<input type="checkbox" name="js-modest-branding" checked> Modest Branding
-										</label>
-										<label class="checkbox">
-											<input type="checkbox" name="js-load-swfobject" checked> Load SWFObject
-										</label>
-									</div>
-								</div>
-								<br/>
-							  <button type="submit" class="btn btn-primary" onClick="createTubeplayer();">Create YouTube TubePlayer</button>
-								<!-- <em class="help-block">$("#youtube-video-player").tubeplayer()</em>	 -->
-						</form>
-					</div>
-			  	<div id="youtube-video-player"></div>
-				<h3>YouTube Player Activity</h3>
-				<div><ul id="js-youtube-player-activity"></ul></div>
-			  </div>
-		  <div class="span2">
-			<h3>API Events</h3>
-			<div>
-		  		<ul class="js-remote-container ui-remote">
-				</ul>
-			</div>
-		  </div>
-		  <div class="span2">
-			<h3>TubePlayer Settings</h3>
-			<br/>
-			<div id="js-tubeplayer-info"></div>
-		  </div>
-			<div class="span4">
-				<h3>TubePlayer Data &nbsp; <small>.tubeplayer("data")</small></h3>
-				<br/>
-				<div id="js-tubeplayer-data"></div>
-				<br/>
-				<h3>TubePlayer Callbacks</h3>
-				<br/>
-				<div> <ul id="js-tubeplayer-callbacks"> </ul> </div>
-			</div>
-		</div>
+                    <div class="col-md-4">
+
+                        <!-- -->
+                        <div class="form-group">
+                            <label>Initial Video ID (<code>initialVideoID</code>)</label>
+                            <input class="form-control" type="text" name="js-initial-video-id" placeholder="VideoID…" value="DkoeNLuMbcI">
+                            <span class="help-block">Specify the video ID, e.g. kOkQ4T5WO9E.</span>
+                        </div>
+                        <!-- -->
+                        <div class="form-group">
+                            <label>Width (<code>width</code>)</label>
+                            <input class="form-control" type="number" name="js-width" placeholder="640px" value="640">
+                            <span class="help-block">Pixel value. Advised to respect 16:9 or 4:3 ratios.</span>
+                        </div>
+                        <!-- -->
+                        <div class="form-group">
+                            <label>Height (<code>height</code>)</label>
+                            <input class="form-control" type="number" name="js-height" placeholder="360px" value="360">
+                            <span class="help-block">Pixel value. Advised to respect 16:9 or 4:3 ratios.</span>
+                        </div>
+                        <!-- -->
+                        <div class="form-group">
+                            <label>Playlist (Array of Video IDs) (<code>playlist</code>)</label>
+                            <input class="form-control" type="text" name="js-playlist" placeholder="Provide a list of video IDs.. (blank for single video)">
+                            <span class="help-block">Specify a list of video Ids, e.g. ["ID1", "ID2",..].</span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <label>Protocol (<code>protocol</code>)</label>
+                            <select class="form-control" name="js-protocol">
+                              <option selected>http</option>
+                              <option>https</option>
+                            </select>
+                            <span class="help-block">The default protocol will be determined by the browser.</span>
+                        </div>
+                        <!-- -->
+                        <div class="form-group">
+                            <label>Controls (<code>controls</code>)</label>
+                            <select class="form-control" name="js-show-controls">
+                                <option value="0">None</option>
+                                <option value="1" selected>Yes; Immediately load</option>
+                                <option value="2">Yes; Lazy load (Upon interaction)</option>
+                            </select>
+                            <span class="help-block">UX behavior around player controls.</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Color (<code>color</code>)</label>
+                            <select class="form-control" name="js-color">
+                              <option selected>red</option>
+                              <option>white</option>
+                            </select>
+                            <span class="help-block">The progress bar an be red or white.</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Qualty (<code>preferredQuality</code>)</label>
+                            <select class="form-control" name="js-pref-qual">
+                                <option selected>default</option>
+                                <option>small</option>
+                                <option>medium</option>
+                                <option>large</option>
+                                <option>hd720</option>
+                                <option>hd1080</option>
+                                <option>highres</option>
+                            </select>
+                            <span class="help-block">The ideal quality level for the stream.</span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <h4>Player Settings</h4>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="js-allow-full-screen" checked> Allow Full Screen (<code>allowFullScreen</code>)
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="js-show-related"> Show Related Videos (<code>showRelated</code>)
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="js-annotations" checked> Show Annotations (<code>annotations</code>)
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="js-auto-play"> Auto Play Video (<code>autoPlay</code>)
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="js-show-info"> Show Information (<code>showinfo</code>)
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="js-modest-branding" checked> Modest Branding (<code>modestbranding</code>)
+                                </label>
+                            </div>
+                        </div>
+
+                        <br/>
+
+                        <button type="submit" class="btn btn-link btn-block" onClick="createTubeplayer();"><br/>&larr; <strong>Create Player w/ Settings</strong><br/><code>$("#playerId").tubeplayer({...});</code><br/><br/></button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        
+        <div class="row control-center">
+            <div class="col-md-7">
+                <h3>YouTube Video Player <br/><small><code>$("#playerId").tubeplayer({...})</code></small></h3>
+                <span class="help-block">The YouTube video player has been initialized below using the settings from the previous screen.</span>
+                <div id="youtube-video-player"></div>
+     
+            </div>
+            <div class="col-md-5">
+                <h3>TubePlayer Data <small><code>$("#playerId").tubeplayer("data")</code></small></h3>
+                <span class="help-block">Accessing the players data will yield the following.</span>
+                <div id="js-tubeplayer-data"></div>
+            </div>
+            <hr/>
+            <div class="col-md-7">
+                <h3>API Methods</h3>
+                <span class="help-block">Some methods return values, others invoke behavior.</span>
+                <dl class="js-remote-container ui-remote"></dl>    
+            </div>
+            <div class="col-md-5">
+                <h3>Player Properties</h3>
+                <small><code>{...}</code></small>
+                <span class="help-block">The settings used to initialize the player.</span>
+                <div id="js-tubeplayer-info"></div>
+            </div>
+            <hr/>
+            <div class="col-md-6">
+                <h3>Player Events</h3>
+                <span class="help-block">Audit trail of actions triggered.</span>
+                <div><dl id="js-tubeplayer-callbacks"></dl></div>   
+            </div>
+            <div class="col-md-6">
+                <h3>Player Activity Callbacks</h3>
+                <span class="help-block">All the callbacks triggered during usage. onPlay, onPause, ...</span>
+                <div><dl id="js-youtube-player-activity"></dl></div>
+            </div>
+        </div>
 
     </div> <!-- /container -->
 
@@ -204,51 +233,350 @@
 </footer>
 
 <!-- scripts concatenated and minified via ant build script-->
-<script src="js/plugins.js"></script>
 <script type="text/html" id="view-tubeplayer-info">
 <div>
-	<ul>
-		<li><span class='label label-inverse'>width</span> <%=width%></li>
-		<li><span class='label label-inverse'>height</span> <%=height%></li>
-		<li><span class='label label-inverse'>allowFullScreen</span> <%=allowFullScreen%></li>
-        <li><span class='label label-inverse'>initialVideo</span> <%=initialVideo%></li>
-        <li><span class='label label-inverse'>start</span> <%=start%></li>
-        <li><span class='label label-inverse'>preferredQuality</span> <%=preferredQuality%></li>
-        <li><span class='label label-inverse'>showControls</span> <%=showControls%></li>
-        <li><span class='label label-inverse'>showRelated</span> <%=showRelated%></li>
-        <li><span class='label label-inverse'>annotations</span> <%=annotations%></li>
-        <li><span class='label label-inverse'>autoPlay</span> <%=autoPlay%></li>
-        <li><span class='label label-inverse'>autoHide</span> <%=autoHide%></li>
-        <li><span class='label label-inverse'>theme</span> <%=theme%></li>
-        <li><span class='label label-inverse'>color</span> <%=color%></li>
-        <li><span class='label label-inverse'>showinfo</span> <%=showinfo%></li>
-        <li><span class='label label-inverse'>modestbranding</span> <%=modestbranding%></li>
-        <li><span class='label label-inverse'>protocol</span> <%=protocol%></li>
-        <li><span class='label label-inverse'>wmode</span> <%=wmode%></li>
-        <li><span class='label label-inverse'>swfobjectURL</span> <%=swfobjectURL%></li>
-        <li><span class='label label-inverse'>loadSWFObject</span> <%=loadSWFObject%></li>
-        <li><span class='label label-inverse'>allowScriptAccess</span> <%=allowScriptAccess%></li>
-        <li><span class='label label-inverse'>playerID</span> <%=playerID%></li>
-        <li><span class='label label-inverse'>iframed</span> <%=iframed%></li>
-	</ul>
+    <table class="table">
+        <tbody>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#width" target="_blank">width</a></code></td><td><code><%=width%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#height" target="_blank">height</a></code></td><td><code><%=height%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#allowFullScreen" target="_blank">allowFullScreen</a></code></td><td><code><%=allowFullScreen%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#initialVideo" target="_blank">initialVideo</a></code></td><td><code><%=initialVideo%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#start" target="_blank">start</a></code></td><td><code><%=start%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#controls" target="_blank">controls</a></code></td><td><code><%=controls%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#rel" target="_blank">showRelated</a></code></td><td><code><%=showRelated%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#iv_load_policy" target="_blank">annotations</a></code></td><td><code><%=annotations%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#autoplay" target="_blank">autoPlay</a></code></td><td><code><%=autoPlay%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#loop" target="_blank">loop</a></code></td><td><code><%=loop%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#color" target="_blank">color</a></code></td><td><code><%=color%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#showinfo" target="_blank">showinfo</a></code></td><td><code><%=showinfo%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#modestbranding" target="_blank">modestbranding</a></code></td><td><code><%=modestbranding%></code></td></tr>
+            <tr><td><code><a href="https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#protocol" target="_blank">protocol</a></code></td><td><code><%=protocol%></code></td></tr>
+            <tr><td><code>preferredQuality</code></td><td><code><%=preferredQuality%></code></td></tr>
+            <tr><td><code>playerID</code></td><td><code><%=playerID%></code></td></tr>
+        </tbody>
+    </table>
 </div>
 </script>
 <script type="text/html" id="view-tubeplayer-data">
 <div>
-	<ul>
-		<li><span class='label label-inverse'>availableQualityLevels</span> <%=availableQualityLevels.join(", ")%></li>
-		<li><span class='label label-inverse'>bytesLoaded</span> <%=bytesLoaded%></li>
-		<li><span class='label label-inverse'>bytesTotal</span> <%=bytesTotal%></li>
-		<li><span class='label label-inverse'>currentTime</span> <%=currentTime%></li>
-		<li><span class='label label-inverse'>duration</span> <%=duration%></li>
-		<li><span class='label label-inverse'>startBytes</span> <%=startBytes%></li>
-		<li><span class='label label-inverse'>state</span> <%=state%></li>
-		<li><span class='label label-inverse'>videoID</span> <%=videoID%></li>
-		<li><span class='label label-inverse'>videoURL</span> <%=videoURL%></li>
-	</ul>
+    <table class="table table-condensed">
+        <tbody>
+            <tr><td><code>availableQualityLevels</code></td><td><code><%=availableQualityLevels ? availableQualityLevels.join(", ") : ''%></td></tr>
+            <tr><td><code>availablePlaybackRates</code></td><td><code><%=availablePlaybackRates ? availablePlaybackRates.join(", ") : ''%></td></tr>
+            <tr><td><code>currentTime</code></td><td><code><%=currentTime%></code></td></tr>
+            <tr><td><code>duration</code></td><td><code><%=duration%></code></td></tr>
+            <tr><td><code>startBytes</code></td><td><code><%=startBytes%></code></td></tr>
+            <tr><td><code>state</code></td><td><code><%=state%></code></td></tr>
+            <tr><td><code>videoID</code></td><td><code><%=videoID%></code></td></tr>
+            <tr><td><code>videoURL</code></td><td><code><%=videoURL%></code></td></tr>
+            <tr><td><code>videoLoadedFraction</code></td><td><code><%=videoLoadedFraction%></code></td></tr>
+            <tr><td><code>playlist.currentIndex</code></td><td><code><%=playlist.currentIndex%></code></td></tr>
+        </tbody>
+    </table>
 </div>
 </script>
+<script type="text/html" id="button-create-player">
+    <button type='button' class='btn btn-block <%= (command === "destroy" ? 'btn-danger' : 'btn-link') %>'>
+        <%=label%> 
+        <% if(typeof(args) === 'undefined') { %>
+            <code>$('#playerId').tubeplayer("<%=command%>");</code>
+        <% } else { %>
+            <% a = (typeof args) %>
+            <code>$('#playerId').tubeplayer("<%=command%>",  <%= a === 'string' ? ('\"'+args+'\"') : args %>);</code>
+        <% } %>
+    </button>
+</script>
 <!-- end scripts-->
+
+<script type="text/javascript">
+(function(){
+    
+    //
+    // TUBEPLAYER OVERRIDES
+    //
+    var playerInfo, playerInfoView;
+    var updateDataInterval;
+    
+    var _pkg = $.tubeplayer.TubePlayer.getPkg;
+
+    /* 
+    Data Model Start
+    */
+    var Command = Backbone.Model.extend({
+        defaults: { 
+            command: "",
+            arguments: [],
+            func: function(){}
+        }
+    });
+    var CommandView = Backbone.View.extend({
+        model: Command,
+        tagName: "dd",
+        template: _.template($("#button-create-player").html()),
+        initialize: function(opts){
+            _.bindAll(this, 'render', 'invoke');
+        },
+        events: { 
+            "click": "invoke"
+        },
+        invoke: function(evt){
+            var fn = this.model.get("func");
+            if( fn ) {
+                fn(window.PLAYER.tubeplayer(this.model.get('command'), this.model.get('args')));
+            }
+        },
+        render: function(){
+            this.$el.html(this.template(this.model.toJSON()));
+            return this;
+        }
+    });
+    var TubeplayerInfo = Backbone.Model.extend({
+        defaults: {
+            "width":600,
+            "height":450,
+            "allowFullScreen":"true",
+            "initialVideo":"DkoeNLuMbcI",
+            "start":0,
+            "preferredQuality":"default",
+            "controls":1,
+            "showRelated":false,
+            "annotations":true,
+            "autoPlay":false,
+            "autoHide":true,
+            "color":"red",
+            "showinfo":false,
+            "modestbranding":true,
+            "protocol":"http",
+            "playerID":"?"
+        }
+    });
+    var TubeplayerInfoView = Backbone.View.extend({
+        model: TubeplayerInfo,
+        template: _.template($("#view-tubeplayer-info").html()),
+        initialize: function(opts){
+            _.bindAll(this, 'render');
+            var that = this;
+            this.model.on('change',function(evt){
+                that.render();
+            });
+        },
+        render: function(){
+            this.$el.html(this.template(this.model.toJSON()));
+            return this;
+        }
+    });
+    /* 
+    Data Model End 
+    */
+    
+    $.tubeplayer.TubePlayer.getPkg = function(evt){
+        var ret = _pkg(evt);
+        if(!playerInfo) playerInfo = new TubeplayerInfo(ret.opts);
+        else playerInfo.set(ret.opts);
+        if(!playerInfoView) {
+            playerInfoView = new TubeplayerInfoView({model:playerInfo});
+            $("#js-tubeplayer-info").html(playerInfoView.render().el);
+        }
+        return ret;
+    };
+    
+    $.tubeplayer.defaults.afterReady = function($player){
+        printCallback("PLAYER INITIALIZED: `afterReady`","info");
+    };
+    
+    //
+    // CONSOLE RELATED
+    //
+    
+    function printLI(type,text){
+        return "<dd><span class='label label-" +type +"'>"
+                +text +"</span> <div class='pull-right'>"
+                +moment().format('h:mm:ss a')+"</div></dd>";
+    }
+    
+    function printCallback(cb,type){
+         $("#js-tubeplayer-callbacks").prepend($(printLI(type||"success",cb))[0]);
+    }
+    
+    function printPlayerUpdate(status, type){
+        $("#js-youtube-player-activity").prepend($(printLI(type||"info",status))[0]);
+    }
+    
+    function textVal(input){
+        return $("[name='"+input+"']").val();
+    }
+
+    function numVal(input){
+        return parseInt($("[name='"+input+"']").val(), 10);
+    }
+    
+    function booleanVal(input){
+        return $("[name='"+input+"']").is(":checked");
+    }
+    
+    function selectVal(input){
+        var $select = $("[name='"+input+"']");
+        var $selected = $select.find("option:selected");
+        return $selected.val() || $selected.text();
+    }
+
+    function arrayVal(input, _default){
+        var val = textVal(input);
+        if(val.length){
+            try{
+                return JSON.parse(val);
+            } catch(ex){}
+        }
+        return _default;
+    }
+    
+    window.createTubeplayer = function(){
+        window.PLAYER = $("#youtube-video-player").tubeplayer({
+            width: numVal('js-width'), // the width of the player
+            height: numVal('js-height'), // the height of the player
+            allowFullScreen: booleanVal("js-allow-full-screen"), // true by default, allow user to go full screen
+            initialVideo: textVal("js-initial-video-id"), // the video that is loaded into the player
+            preferredQuality: selectVal("js-pref-qual"),// preferred quality: default, small, medium, large, hd720
+            controls: selectVal("js-show-controls"),
+            playlist: arrayVal("js-playlist", null), // playlists are optional; it is possible to reference a list of video IDs
+            showRelated: booleanVal("js-show-related"),
+            annotations: booleanVal("js-annotations"),
+            autoPlay: booleanVal("js-auto-play"),
+            autoHide: booleanVal("js-auto-hide"),
+            color: selectVal("js-color"), // 'red' or 'white'
+            showinfo: booleanVal("js-show-info"),
+            modestbranding: booleanVal("js-modest-branding"),
+            protocol: selectVal("js-protocol"),
+            onPlay: function(id){
+                printCallback("PLAY (onPlay)");
+            },
+            onPause: function(){
+                printCallback("PAUSE (onPause)");
+            },
+            onStop: function(){
+                printCallback("STOP (onStop)");
+            }, 
+            onSeek: function(time){
+                printCallback("SEEK (onSeek)");
+            }, 
+            onMute: function(){
+                printCallback("MUTE (onMute)");
+            }, 
+            onUnMute: function(){
+                printCallback("UNMUTE (onUnMute)");
+            },
+            onPlayerUnstarted: function(){
+                printPlayerUpdate("UNSTARTED (onPlayerUnstarted)");
+            },
+            onPlayerEnded: function(){
+                printPlayerUpdate("ENDED (onPlayerEnded)");
+            },
+            onPlayerPlaying: function(){
+                printPlayerUpdate("PLAYING (onPlayerPlaying)");
+            },
+            onPlayerPaused: function(){
+                printPlayerUpdate("PAUSED (onPlayerPaused)");
+            },
+            onPlayerBuffering: function(){
+                printPlayerUpdate("BUFFERING (onPlayerBuffering)");
+            },
+            onPlayerCued: function(){
+                printPlayerUpdate("CUED (onPlayerCued)");
+            },
+            onQualityChange: function(qual){
+                printPlayerUpdate("QUALITY CHANGED: " + qual +" (onQualityChange)");
+            },
+            onRateChange: function(rate){
+                printPlayerUpdate("RATE CHANGED: " + rate + " (onRateChange)");
+            },
+            onErrorNotFound: function(){
+                printPlayerUpdate("NOT FOUND (onErrorNotFound)", "danger");
+            },
+            onErrorNotEmbeddable: function(){
+                printPlayerUpdate("NOT EMBEDDABLE (onErrorNotEmbeddable)", "danger");
+            },
+            onErrorInvalidParameter: function(){
+                printPlayerUpdate("INVALID PARAMETER (onErrorInvalidParameter)", "danger");
+            }
+        });
+        consoleView();
+        var tmpl = _.template( $("#view-tubeplayer-data").html() );
+        var updateData = function(){
+            $("#js-tubeplayer-data").html( tmpl(window.PLAYER.tubeplayer("data")) );
+        };
+        updateDataInterval = setInterval(updateData, 500);
+    };
+    
+    // 
+    // View Layers
+    //
+    function formView(){
+         $('.js-tubeplayer-inits-form').show(); 
+         $("h3,.ui-remote,.control-center").hide(); 
+         window.clearInterval(updateDataInterval);  
+         $("#js-tubeplayer-callbacks,#js-youtube-player-activity,#js-tubeplayer-info,#js-tubeplayer-data").html(""); 
+         playerInfoView = undefined;
+    };
+    
+    function consoleView(){
+        $('h3,.ui-remote,.control-center').show();
+        $('.js-tubeplayer-inits-form').hide();
+    };
+    
+    //
+    // CONTROLS
+    //
+    var $remoteContainer = $(".js-remote-container");
+    
+    var _commands = [
+        { label: "Cue a New Video", command: "cue", args:"kOkQ4T5WO9E" },
+        { label: "Play", command: "play" },
+        { label: "Play Video by ID", command: "play", args: "_PdW50Vt4x4" },
+
+        { label: "Pause Video", command: "pause" },
+        { label: "Stop Playing", command: "stop" },
+        { label: "Seek Video", command: "seek", args: 30 },
+
+        { label: "Mute", command: "mute" },
+        { label: "Unmute", command: "unmute" },
+        { label: "Check if muted", command: "isMuted", func: function(is){ printCallback("MUTED: " + is,"primary"); } },
+
+        { label: "Get Volume", command: "volume", func: function(v){ printCallback("VOLUME: " + v,"primary"); } },
+        { label: "Set Volume to 15/100", command: "volume", args:15},
+        { label: "Set Volume to 85/100", command: "volume", args:85},
+
+        // { label: "Adjust the Player Size", command: "size", args: },
+        { label: "Get the Video Quality", command: "quality", func: function(q){ printCallback("QUALITY: " + q,"primary"); } },
+
+        { label: "Get the Playback Rate", command: "playbackRate", func: function(q){ printCallback("PLAYBACK RATE: " + q,"primary"); } },
+        { label: "Play at Double Speed", command: "playbackRate", args:2},
+        { label: "Reset Playback Rate", command: "playbackRate", args:1},
+        { label: "Play at Half Speed", command: "playbackRate", args:0.5},
+
+        { label: "Get Player's YouTube Video ID", command: "videoId", func: function(vid){ printCallback("VIDEO ID: " + vid,"primary"); } },
+
+        { label: "Next in Playlist", command: "next" },
+        { label: "Previous in Playlist", command: "previous" },
+
+        { label: "Destroy the Player", command: "destroy", func: function(){ printCallback("DESTROYED","important"); formView(); } }
+    ];
+    var tmpCmd;
+    for(var cmd in _commands){
+        tmpCmd = new Command(_commands[cmd]);
+        tmpCmdView = new CommandView({ model: tmpCmd });
+        $remoteContainer.append(tmpCmdView.render().el);
+    }
+    
+    //
+    // EXTRA
+    //
+    var $time = $("#js-current-time");
+    setInterval(function(){
+        $time.text(moment().format("hh:mm:ss a"));
+    },1000);
+        
+})();
+</script>
 
 </body>
 </html>

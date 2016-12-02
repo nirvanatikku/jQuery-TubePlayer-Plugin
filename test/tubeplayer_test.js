@@ -1,28 +1,17 @@
 (function($) {
 	
-	//
-	// Toggle this flag if testing functions that are in HTML5 trial mode. --> http://www.youtube.com/html5
-	//
-	var HTML5TrialMode = false; 
-
-	//
-	// Note: Be sure to read any special notes on tests. 
-	// If supported by the HTML5 trial, be sure to sign up at http://www.youtube.com/html5
-	//
-
-	var PlayerVolume = 0;
+	var DEFAULT_VOLUME = 50;
 
 	/**
 	 * T E S T
-	 * / / / /
 	 * I N F R A S T R U C T U R E
-	 * / / / / / / / / / / / / / /
 	 */
 	module('Basic', {
 		setup: function() {
 			this.$player = $('.youtube-player');
 		},
 		teardown: function(){
+			this.$player.tubeplayer("volume", DEFAULT_VOLUME);
 			this.$player.tubeplayer('destroy');
 		}
 	});
@@ -41,13 +30,9 @@
 
 	asyncTest('Creation and Ensure data and state is intact', function() {
 
-		expect(19);
+		expect(15);
 
 		$.tubeplayer.defaults.afterReady = function($player) {
-			
-			if(!PlayerVolume){
-				PlayerVolume = $player.tubeplayer('volume');
-			}
 			
 			var data = $player.tubeplayer('data');
 			equal(data.state === $.tubeplayer.TubePlayer.State.UNSTARTED || data.state === $.tubeplayer.TubePlayer.State.CUED, true, 'is uninitialized/cued upon creation');
@@ -55,20 +40,16 @@
 			
 			var opts = $player.tubeplayer('opts');
 			equal(opts.annotations, true, "annotations");
-			equal(opts.autoHide, true, "autoHide");
 			equal(opts.autoPlay, false, "autoPlay");
 			equal(opts.color, "red", "color");
 			equal(opts.height, "400px", "height");
-			equal(opts.iframed, true, "iframed");
-			equal(opts.loadSWFObject, false, "loadSWFObject");
 			equal(opts.loop, false, "loop");
 			equal(opts.modestbranding, true, "modestbranding");
 			equal(opts.preferredQuality, "default", "preferredQuality");
 			equal(opts.protocol, "http", "protocol");
-			equal(opts.showControls, true, "showControls");
+			equal(opts.controls, 1, "showControls");
 			equal(opts.showRelated, false, "showRelated");
 			equal(opts.showinfo, false, "showinfo");
-			equal(opts.theme, "dark", "theme");
 			equal(opts.start, 0, "start");
 			
 			$player.tubeplayer('destroy');
@@ -77,7 +58,6 @@
 		};
 
 		ok(this.$player.tubeplayer({
-			iframed: true,
 			width: '300px',
 			height: '400px'
 		}), 'recreated w/ (300,400)');
@@ -86,13 +66,11 @@
 	
 	asyncTest('Player creation and control', function() {
 
-		expect(5);
+		expect(4);
 
 		$.tubeplayer.defaults.afterReady = function($player) {
 			var data = $player.tubeplayer('data');
-			// note: html5 trial shows CUED initially, otherwise UNSTARTED
 			equal(data.state === $.tubeplayer.TubePlayer.State.UNSTARTED || data.state === $.tubeplayer.TubePlayer.State.CUED, true, 'is uninitialized upon creation');
-			equal($player.tubeplayer('volume'), PlayerVolume, 'volume is at default when starting');
 			equal($player.tubeplayer('isMuted'), false, 'player should not be muted');
 			start();
 		};
@@ -104,11 +82,8 @@
 	
 	/**
 	 * T E S T
-	 * / / / /
 	 * E V E N T S     &
-	 * / / / / / /     /
 	 * C A L L B A C K S
-	 * / / / / / / / / /
 	 */
 	module('Events', {
 		setup: function() {
@@ -121,38 +96,32 @@
 			this.$player.remove();
 		}
 	});
-	
-	if(!HTML5TrialMode){
+
+	/**
+	 * C U E   V I D E O
+	 * 
+	 * Notes: If client is participating in HTML5 trial, onPlayerCued does not seem to get called.
+	 */
+	asyncTest('tubeplayer(\'cue\') -> onPlayerCued', function(){
 		
-		/**
-		 * C U E   V I D E O
-		 * / / /   / / / / /
-		 * 
-		 * Notes: If client is participating in HTML5 trial, onPlayerCued does not seem to get called.
-		 */
-		asyncTest('tubeplayer(\'cue\') -> onPlayerCued', function(){
-			
-			expect(3);
+		expect(3);
 
-			$.tubeplayer.defaults.afterReady = function($player) {
-				$player.tubeplayer('cue', '7iEDYB7pY7U');
-			};
+		$.tubeplayer.defaults.afterReady = function($player) {
+			$player.tubeplayer('cue', '7iEDYB7pY7U');
+		};
 
-			ok(this.$player.tubeplayer({
-				onPlayerCued: function() {
-					equal(this.tubeplayer('data').videoID, '7iEDYB7pY7U', 'video id is the cueued id');
-					equal(this.tubeplayer('data').state, 5, 'is currently cued');
-					start();
-				}
-			}), 'created, now play');
+		ok(this.$player.tubeplayer({
+			onPlayerCued: function() {
+				equal(this.tubeplayer('data').videoID, '7iEDYB7pY7U', 'video id is the cueued id');
+				equal(this.tubeplayer('data').state, 5, 'is currently cued');
+				start();
+			}
+		}), 'created, now play');
 
-		});
-		
-	}
+	});
 	
 	/**
 	 * P L A Y
-	 * / / / /
 	 */
 	asyncTest('tubeplayer(\'play\') -> onPlay, onPlayerPlaying', function() {
 
@@ -179,7 +148,6 @@
 	
 	/**
 	 * P L A Y  O P T I O N S
-	 * / / / /  / / / / / / / 
 	 */
 	asyncTest("tubeplayer('play','VqPo5vueSSA') -> onPlayerPlaying", function(){
 		
@@ -195,7 +163,6 @@
 		};
 
 		ok(this.$player.tubeplayer({
-			iframed:true, 
 			initialVideo: originalVideoID,
 			onPlayerPlaying: function(){
 				ok(true);
@@ -208,7 +175,6 @@
 
 	/**
 	 * P A U S E
-	 * / / / / /
 	 */
 	asyncTest('tubeplayer(\'pause\') -> onPause, onPlayerPaused', function() {
 
@@ -241,11 +207,10 @@
 
 	/**
 	 * V O L U M E
-	 * / / / / / /
 	 */
 	asyncTest('tubeplayer(\'mute\'), tubeplayer(\'unmute\') -> onStop', function() {
 
-		expect(9);
+		expect(8);
 
 		$.tubeplayer.defaults.afterReady = function($player) {
 			$player.tubeplayer('play');
@@ -262,7 +227,6 @@
 
 				var vol = self.$player.tubeplayer('volume');
 
-				equal(vol, PlayerVolume, "base volume is default");
 				equal(self.$player.tubeplayer('isMuted'), false, "isn't muted yet");
 
 				self.$player.tubeplayer('mute');
@@ -270,7 +234,7 @@
 				setTimeout(function() {
 
 					equal(self.$player.tubeplayer('isMuted'), true, "should be muted now");
-					equal(self.$player.tubeplayer('volume'), 0, "volume should be 0");
+					equal(self.$player.tubeplayer('volume'), vol, "volume should remain, though muted");
 
 					self.$player.tubeplayer('unmute');
 
@@ -296,7 +260,6 @@
 	
 	/**
 	 * S E E K
-	 * / / / / 
 	 */
 	asyncTest("tubeplayer('seek') -> onSeek", function(){
 		
@@ -330,7 +293,6 @@
 	
 	/**
 	 * P L A Y E R  E N D E D
-	 * / / / / / /  / / / / / 
 	 */
 	asyncTest('tubeplayer(\'seek\',[end]) -> onPlayerEnded', function(){
 		
@@ -359,7 +321,6 @@
 	
 	/**
 	 * S I Z E
-	 * / / / /
 	 */
 	asyncTest("tubeplayer('size',{width:400,height:300})", function(){
 		
@@ -372,88 +333,80 @@
 			start();
 		};
 
-		ok(this.$player.tubeplayer({iframed:true, width:800,height:600}), 'created');
+		ok(this.$player.tubeplayer({width:800,height:600}), 'created');
 
 	});
 	
 	/**
 	 * Q U A L I T Y
-	 * / / / / / / / 
-	 * 
-	 * Notes: Seems as though if the user is participating in the HTML5 trial, 'quality' returns null.
 	 */
 	asyncTest("tubeplayer('quality') -> onQualityChange", function(){
 		
-		expect(HTML5TrialMode ? 2 : 3); // onQualityChange isnt triggered in case of HTML5 trial.
+		// a change cannot be guaranteed, so this test isn't perfect
+
+		expect(3); 
 		
-		var qualitySet = "medium";
+		var QUALITY_TO_SET = "small";
 
 		$.tubeplayer.defaults.afterReady = function($player) {
+			equal($player.tubeplayer('quality'), 'unknown', 'Quality is unknown at start');
 			$player.tubeplayer("play");
 		};
 		
 		ok(this.$player.tubeplayer({
-			iframed:true, 
 			width:300,
 			height:200,
-			preferredQuality: qualitySet,
+			preferredQuality: QUALITY_TO_SET,
 			onPlayerPlaying: function(){
-				equal(this.tubeplayer('quality'), qualitySet, 'default quality is set');
-				qualitySet = "large";
-				this.tubeplayer('quality', qualitySet);
+				this.tubeplayer('quality', 'large');
 				start();
 			},
 			onQualityChange: function(){
-				equal(this.tubeplayer('quality'), qualitySet, 'validate that the quality was set appropriately');
+				notEqual(this.tubeplayer('quality'), QUALITY_TO_SET, 'validate that the quality was set appropriately');
 			}
 		}), 'created');
 
 	});
 	
-	if(HTML5TrialMode){
-		/**
-		 * P L A Y B A C K   R A T E
-		 * / / / / / / / /   / / / / 
-		 * 
-		 * Note: requires that the user is participating in HTML trial.
-		 */
-		asyncTest("tubeplayer('playbackRate'), tubeplayer('data').availablePlaybackRates",function(){
-		
-			expect(5);
-		
-			$.tubeplayer.defaults.afterReady = function($player){
-				equal($player.tubeplayer('videoId'), "JtbDDqU3dVI", "variable playback rate video set properly");
-				$player.tubeplayer('play');  // video has to enable variable playback rate
-			};
-		
-			ok(this.$player.tubeplayer({
-				width: 300,
-				height: 200,
-				initialVideo: "JtbDDqU3dVI",
-				onPlayerPlaying: function(){
-				
-					deepEqual(this.tubeplayer('data').availablePlaybackRates, [ 0.25, 0.5, 1, 1.5, 2 ], "available playback rates are consistent");
-				
-					var currentRate = this.tubeplayer('playbackRate');
-					equal(currentRate, 1, "player should be at 1x normally");
-				
-					this.tubeplayer('playbackRate', 2);
-				
-					var me = this;
-					setTimeout(function(){
-						equal(me.tubeplayer('playbackRate'), 2, "rate was updated to 2x appropriately");
-						start();
-					},50);
-				
-				}
-			}), 'created');
-		
-		});
-	}
+
+	/**
+	 * P L A Y B A C K   R A T E
+	 */
+	asyncTest("tubeplayer('playbackRate'), tubeplayer('data').availablePlaybackRates",function(){
+	
+		expect(5);
+	
+		$.tubeplayer.defaults.afterReady = function($player){
+			equal($player.tubeplayer('videoId'), "JtbDDqU3dVI", "variable playback rate video set properly");
+			$player.tubeplayer('play');  // video has to enable variable playback rate
+		};
+	
+		ok(this.$player.tubeplayer({
+			width: 300,
+			height: 200,
+			initialVideo: "JtbDDqU3dVI",
+			onPlayerPlaying: function(){
+			
+				deepEqual(this.tubeplayer('data').availablePlaybackRates, [ 0.25, 0.5, 1, 1.25, 1.5, 2 ], "available playback rates are consistent");
+			
+				var currentRate = this.tubeplayer('playbackRate');
+				equal(currentRate, 1, "player should be at 1x normally");
+			
+				this.tubeplayer('playbackRate', 2);
+			
+				var me = this;
+				setTimeout(function(){
+					equal(me.tubeplayer('playbackRate'), 2, "rate was updated to 2x appropriately");
+					start();
+				},50);
+			
+			}
+		}), 'created');
+	
+	});
 	
 	/**
 	 * D A T A   I N T A C T
-	 * / / / /   / / / / / /
 	 */
 	asyncTest("tubeplayer('data') -> returns defined keys", function(){
 		
@@ -469,6 +422,7 @@
 			"videoURL",
 			"videoEmbedCode",
 			"videoID",
+			"playlist",
 			"availableQualityLevels",
 			"availablePlaybackRates"
 		];
@@ -487,40 +441,32 @@
 		
 	});
 	
-	if(!HTML5TrialMode){
-		
-		/**
-		 * B A D  I N I T  S I Z E
-		 * / / /  / / / /  / / / / 
-		 * 
-		 * Note: If user is participating in HTML5 trial, this error does not get thrown.
-		 */
-		asyncTest("bad init w/ {100,100} (onErrorNotEmbeddable)", function(){
-		
-			expect(2);
+	/**
+	 * B A D  I N I T  S I Z E
+	 * Note: Seems to work with iframe API
+	 */
+	// asyncTest("bad init w/ {10,10} (onErrorNotEmbeddable)", function(){
+	
+	// 	expect(2);
 
-			$.tubeplayer.defaults.afterReady = function($player) {
-				$player.tubeplayer('play');
-			};
+	// 	$.tubeplayer.defaults.afterReady = function($player) {
+	// 		$player.tubeplayer('play');
+	// 	};
 
-			ok(this.$player.tubeplayer({
-				iframed:true, 
-				autoplay: true,
-				width:100,
-				height:100,
-				onErrorNotEmbeddable: function(){
-					ok(true);
-					start();
-				}
-			}), 'created');
+	// 	ok(this.$player.tubeplayer({
+	// 		autoplay: true,
+	// 		width:10,
+	// 		height:10,
+	// 		onErrorNotEmbeddable: function(){
+	// 			ok(true);
+	// 			start();
+	// 		}
+	// 	}), 'created');
 
-		});
-		
-	}
+	// });
 	
 	/**
 	 * B A D  I N I T  V I D E O I D
-	 * / / /  / / / /  / / / / / / / 
 	 */
 	asyncTest("bad init w/ no videoID (onErrorInvalidParameter)", function(){
 		
@@ -531,7 +477,6 @@
 		};
 
 		ok(this.$player.tubeplayer({
-			iframed:true, 
 			autoplay: true,
 			width:200,
 			height:200,
@@ -545,7 +490,6 @@
 	
 	/**
 	 * G E T   P L A Y E R S 
-	 * / / /   / / / / / / / 
 	 */
 	asyncTest("create one, $.tubeplayer.getPlayers() === 1", function(){
 		
@@ -563,9 +507,7 @@
 	
 	/**
 	 * M U L T I P L E 
-	 * / / / / / / / / 
 	 * P L A Y E R S
-	 * / / / / / / /
 	 */
 	module('Multiple', {
 		setup: function() {
@@ -583,7 +525,6 @@
 	
 	/**
 	 * C R E A T E
-	 * / / / / / / 
 	 */
 	asyncTest("create three, $.tubeplayer.getPlayers() === 3", function(){
 		
@@ -609,11 +550,10 @@
 	
 	/**
 	 * P L A Y   3   V I D E O S
-	 * / / / /   /   / / / / / / 
 	 */
 	asyncTest("create three players, tubeplayer('play') 3 unique IDs", function(){
 		
-		expect(8);
+		expect(7);
 		
 		var players = $.tubeplayer.getPlayers();
 		equal(Object.keys(players).length, 0, "no players yet");
