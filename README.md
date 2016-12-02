@@ -197,10 +197,10 @@ In order to use the console, you will need to run a web server. A simple example
 	python -m SimpleHTTPServer 8082
 	```
 	
-There is a bash script that will run the debug console from the root directory. Navigate to that directory and
+There is a bash script that will run the debug console from the root directory. Assuming $CWD is the root directory:
 
 	```bash
-	./server.sh
+	./scripts/server.sh
 	```
 
 To access..
