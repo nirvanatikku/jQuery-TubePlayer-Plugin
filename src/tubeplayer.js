@@ -274,12 +274,14 @@
 	 *	@param opts - the user's options
 	 */
 	TP.init = function($player, opts) {
-		if ($player.hasClass(TUBEPLAYER_CLASS)) return $player;
+		if ($player.hasClass(TUBEPLAYER_CLASS)) {
+			return $player;
+		}
 		var o = $.extend({}, defaults, opts);
 		o.playerID += "-" + guid();
 		$player.addClass(TUBEPLAYER_CLASS).data(OPTS, o);
-		for (var event in PLAYER){
-			$player.bind(event + TUBEPLAYER, $player, PLAYER[event]);
+		for (var event in PlayerEvents){
+			$player.bind(event + TUBEPLAYER, $player, PlayerEvents[event]);
 		}
 		// initialize the default event methods
 		TP.initDefaults($.tubeplayer.defaults, o);
@@ -431,7 +433,7 @@
 	/**
 	 * All the events that are bound to a TubePlayer instance
 	 */
-	var PLAYER = {
+	var PlayerEvents = {
 		opts: wrap_fn(function(evt,param,p){
 			return p.opts;
 		}),
