@@ -1,3 +1,6 @@
+/*! jQuery TubePlayer - Simplified YouTube Player Management - v2.0.0-beta - 2016-12-02
+* https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin
+* Copyright (c) 2016 Nirvana Tikku; Licensed MIT */
 (function($) {
     'use strict';
     //

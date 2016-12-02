@@ -1,11 +1,30 @@
 {
   "name": "jquery-tubeplayer-plugin",
-  "version": "1.1.7",
+  "title": "jQuery TubePlayer Plugin",
+  "description": "Simplified management of embedded YouTube players",
+  "version": "2.0.0-beta",
+  "homepage": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin",
+  "bugs": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin/issues",
+  "author": {
+    "name": "Nirvana Tikku",
+    "email": "ntikku@gmail.com",
+    "url": "https://tikku.com/"
+  },
   "engines": {
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "grunt qunit"
+    "build": "npm install && grunt",
+    "test": "grunt travis --verbose"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jQuery": "~1.6.2"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.1.1",
@@ -15,5 +34,11 @@
     "grunt-contrib-watch": "~0.2.0",
     "grunt-contrib-clean": "~0.4.0",
     "grunt": "~0.4.1"
-  }
+  },
+  "keywords": [
+    "youtube",
+    "video",
+    "media", 
+    "player"
+  ]
 }

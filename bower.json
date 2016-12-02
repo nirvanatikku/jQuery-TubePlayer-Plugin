@@ -1,0 +1,29 @@
+{
+  "name": "jquery-tubeplayer-plugin",
+  "version": "2.0.0-beta",
+  "homepage": "https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin",
+  "authors": [
+    "Nirvana Tikku <ntikku@gmail.com>"
+  ],
+  "description": "Simplified management of embedded YouTube players",
+  "main": "dist/jquery.tubeplayer.js",
+  "keywords": [
+    "youtube",
+    "video",
+    "media", 
+    "player"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.6.2"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "test_console",
+    "scripts"
+  ]
+}
