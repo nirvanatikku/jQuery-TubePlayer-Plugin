@@ -127,12 +127,12 @@
 	var defaults = {
 
 		// public facing
-		width: 425,
-		height: 355,
+		width: 480,
+		height: 270,
 		allowFullScreen: "true",
 		initialVideo: "DkoeNLuMbcI",
 		start: 0,
-		preferredQuality: "auto",
+		preferredQuality: "default",
 		controls: 1,
 		showRelated: false,
 		playsinline: false,
@@ -142,8 +142,7 @@
 		color: 'red', // 'red' or 'white'
 		showinfo: false,
 		modestbranding: true,
-		protocol: window.location.protocol == "https:" ? "https" : "http",
-		// set to 'https' for compatibility on SSL-enabled pages
+		protocol: window.location.protocol == "https:" ? "https" : "http", // set to 'https' for compatibility on SSL-enabled pages
 		allowScriptAccess: "always",
 		playerID: "tubeplayer-player-container",
 
