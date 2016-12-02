@@ -230,9 +230,7 @@
 				}
 			});
 		} else if (type === "string") {
-			return $this.each(function(index, el) { // handle multiple elements
-				$(this).triggerHandler(input + TUBEPLAYER, (typeof xtra !== 'undefined' ? xtra : null));
-			});
+			return $this.triggerHandler(input + TUBEPLAYER, (typeof xtra !== 'undefined' ? xtra : null));
 		}
 	};
 
