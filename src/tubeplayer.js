@@ -41,8 +41,8 @@
 	 * the events can be overridden as they are public.
 	 *
 	 * There are several functions that serve as wrappers to be utilized
-	 * internally - stateChange, onError, qualityChange. Change them at your
-	 * own risk.
+	 * internally - stateChange, onError, qualityChange, rateChange. 
+	 * Change them at your own risk.
 	 */
 	$.tubeplayer.defaults = {
 		afterReady: function() {}, // args: $player
@@ -54,20 +54,20 @@
 					state = state.data;
 				}
 				switch (state) {
-				case TP.State.UNSTARTED:
-					return _ret.unstarted[player].call(_player);
-				case TP.State.ENDED:
-					return _ret.ended[player].call(_player);
-				case TP.State.PLAYING:
-					return _ret.playing[player].call(_player);
-				case TP.State.PAUSED:
-					return _ret.paused[player].call(_player);
-				case TP.State.BUFFERING:
-					return _ret.buffering[player].call(_player);
-				case TP.State.CUED:
-					return _ret.cued[player].call(_player);
-				default:
-					return null;
+					case TP.State.UNSTARTED:
+						return _ret.unstarted[player].call(_player);
+					case TP.State.ENDED:
+						return _ret.ended[player].call(_player);
+					case TP.State.PLAYING:
+						return _ret.playing[player].call(_player);
+					case TP.State.PAUSED:
+						return _ret.paused[player].call(_player);
+					case TP.State.BUFFERING:
+						return _ret.buffering[player].call(_player);
+					case TP.State.CUED:
+						return _ret.cued[player].call(_player);
+					default:
+						return null;
 				}
 			};
 		},
@@ -82,14 +82,11 @@
 					case TP.Error.BAD_INIT:
 					case TP.Error.INVALID_PARAM:
 						return _ret.invalidParameter[player].call(_player);
-
 					case TP.Error.NOT_FOUND:
 						return _ret.notFound[player].call(_player);
-
 					case TP.Error.NOT_EMBEDDABLE:
 					case TP.Error.CANT_PLAY:
 						return _ret.notEmbeddable[player].call(_player);
-
 					default:
 						return _ret.defaultError[player].call(_player);
 				}
@@ -252,7 +249,6 @@
 	$.tubeplayer.getPlayers = function() {
 		return TP.ytplayers;
 	};
-
 
 	/**
 	 * Initialize a YouTube player;
