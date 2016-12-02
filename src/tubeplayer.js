@@ -201,14 +201,48 @@
 		var type = typeof input;
 		if (arguments.length === 0 || type === "object") {
 			return $this.each(function() {
-				TP.init($(this), input);
+				$this = $(this);
+				// check if the current element is an iframe and if so replace it with a div
+				// Mihai Ionut Vilcu - 26/Oct/2013
+				if($this.prop('tagName') == "IFRAME") {
+					// make sure we have a valid YT url
+		            var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+		            var match = $this.attr('src').match(regExp);
+		            if (match&&match[7].length==11) { // we have the id
+		            	var settings = {initialVideo : match[7]},
+		            		class_name = $this.attr('class'),
+		            		ids = $this.attr('id');
+		            	// check for extra settings
+						if($this.attr('width')) {
+							settings.width = $this.attr('width');
+						}
+						if($this.attr('height')) {
+							settings.height = $this.attr('height');
+						}
+						if($this.attr('allowfullscreen') != undefined) {
+							settings.allowFullScreen = "true";
+						}
+						else {
+							settings.allowFullScreen = false;
+						}
+		            	var newDiv = $("<div></div>").attr({
+		            		'class' : class_name ? class_name : '',
+		            		'id' : ids ? ids : '',
+		            	});
+		            	$this.replaceWith(newDiv);
+		            	var new_input = $.extend({}, defaults, settings, input);
+						TP.init(newDiv, new_input);
+		            }
+				} else {
+					TP.init($(this), input);
+				}
 			});
 		} else if (type === "string") {
-			return $this.triggerHandler(input + TUBEPLAYER, (typeof xtra !== 'undefined' ? xtra : null));
+			return $this.each(function(index, el) { // handle multiple elements
+				$(this).triggerHandler(input + TUBEPLAYER, (typeof xtra !== 'undefined' ? xtra : null));
+			});
 		}
-
 	};
-
 
 	/**
 	 * This method is the base method for all the events
