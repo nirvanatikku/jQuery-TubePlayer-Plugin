@@ -13,171 +13,171 @@ Download the [production version][min] or the [development version][max].
 
 In your web page:
 	
-	```html
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-tubeplayer/2.0.0/jQuery.tubeplayer.min.js"></script>
-	<div id='youtube-video-player'></div>
-	<script type="text/javascript">
-	jQuery(document).ready(function(){
-		jQuery("#youtube-video-player").tubeplayer({
-			width: 600, // the width of the player
-			height: 450, // the height of the player
-			initialVideo: "[some video id]", // the video that is loaded into the player
-			onPlay: function(id){}, // after the play method is called
-			onPause: function(){}, // after the pause method is called
-			onStop: function(){}, // after the player is stopped
-			onSeek: function(time){}, // after the video has been seeked to a defined point
-			onMute: function(){}, // after the player is muted
-			onUnMute: function(){} // after the player is unmuted
-		});
+```html
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-tubeplayer/2.0.0/jQuery.tubeplayer.min.js"></script>
+<div id='youtube-video-player'></div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery("#youtube-video-player").tubeplayer({
+		width: 600, // the width of the player
+		height: 450, // the height of the player
+		initialVideo: "[some video id]", // the video that is loaded into the player
+		onPlay: function(id){}, // after the play method is called
+		onPause: function(){}, // after the pause method is called
+		onStop: function(){}, // after the player is stopped
+		onSeek: function(time){}, // after the video has been seeked to a defined point
+		onMute: function(){}, // after the player is muted
+		onUnMute: function(){} // after the player is unmuted
 	});
-	</script>
-	```
+});
+</script>
+```
 
 ## Documentation
 
 ### TubePlayer Plugin Defaults
 
-	```javascript
-	{
-		
-		// Plugin init params
-		width: 480, 					      // the width of the player
-		height: 270, 					      // the height of the player
-		allowFullScreen: "true", 		      // true by default, allow user to go full screen
-		initialVideo: "DkoeNLuMbcI", 	      // the video that is loaded into the player
-		start: 0, 
-		preferredQuality: "default",	      // preferred quality: auto, small, medium, large, hd720
-		controls: 1, 					      // whether the player should have the controls visible, 0 or 1 or 2
-		showRelated: false, 			      // show the related videos when the player ends, 0 or 1 
-		playsinline: false,				      // setting for ipad
-		autoPlay: false, 				      // whether the player should autoplay the video, 0 or 1
-		color: "red", 					      // possible options: "red" or "white"
-		showinfo: false, 				      // if you want the player to include details about the video
-		modestbranding: true, 			      // specify to include/exclude the YouTube watermark
-		annotations: true, 				      // show annotations?
-		loop: 0, 						      // whether or not the player will loop
-		protocol: 'http', 
+```javascript
+{
+	
+	// Plugin init params
+	width: 480, 					      // the width of the player
+	height: 270, 					      // the height of the player
+	allowFullScreen: "true", 		      // true by default, allow user to go full screen
+	initialVideo: "DkoeNLuMbcI", 	      // the video that is loaded into the player
+	start: 0, 
+	preferredQuality: "default",	      // preferred quality: auto, small, medium, large, hd720
+	controls: 1, 					      // whether the player should have the controls visible, 0 or 1 or 2
+	showRelated: false, 			      // show the related videos when the player ends, 0 or 1 
+	playsinline: false,				      // setting for ipad
+	autoPlay: false, 				      // whether the player should autoplay the video, 0 or 1
+	color: "red", 					      // possible options: "red" or "white"
+	showinfo: false, 				      // if you want the player to include details about the video
+	modestbranding: true, 			      // specify to include/exclude the YouTube watermark
+	annotations: true, 				      // show annotations?
+	loop: 0, 						      // whether or not the player will loop
+	protocol: 'http', 
 
-		// Player Trigger Specific Functionality
-		onPlay: function(id){}, 		      // after the play method is called
-		onPause: function(){}, 			      // after the pause method is called
-		onStop: function(){}, 			      // after the player is stopped
-		onSeek: function(time){}, 		      // after the video has been seeked to a defined point
-		onMute: function(){}, 			      // after the player is muted
-		onUnMute: function(){}, 		      // after the player is unmuted
-		
-		// Player State Change Specific Functionality
-		onPlayerUnstarted: function(){},      // when the player returns a state of unstarted
-		onPlayerEnded: function(){}, 	      // when the player returns a state of ended
-		onPlayerPlaying: function(){},        //when the player returns a state of playing
-		onPlayerPaused: function(){}, 	      // when the player returns a state of paused
-		onPlayerBuffering: function(){},      // when the player returns a state of buffering
-		onPlayerCued: function(){}, 	      // when the player returns a state of cued
-		onQualityChange: function(quality){}, // when the player quality changes
-		onRateChange: function(rate){},       // when the player rate changes
-		
-		// Error State Specific Functionality
-		onErrorNotFound: function(){},        // if a video cant be found
-		onErrorNotEmbeddable: function(){},   // if a video isnt embeddable
-		onErrorInvalidParameter: function(){} // if we've got an invalid param and can't play
-		
-	};
-	```
+	// Player Trigger Specific Functionality
+	onPlay: function(id){}, 		      // after the play method is called
+	onPause: function(){}, 			      // after the pause method is called
+	onStop: function(){}, 			      // after the player is stopped
+	onSeek: function(time){}, 		      // after the video has been seeked to a defined point
+	onMute: function(){}, 			      // after the player is muted
+	onUnMute: function(){}, 		      // after the player is unmuted
+	
+	// Player State Change Specific Functionality
+	onPlayerUnstarted: function(){},      // when the player returns a state of unstarted
+	onPlayerEnded: function(){}, 	      // when the player returns a state of ended
+	onPlayerPlaying: function(){},        //when the player returns a state of playing
+	onPlayerPaused: function(){}, 	      // when the player returns a state of paused
+	onPlayerBuffering: function(){},      // when the player returns a state of buffering
+	onPlayerCued: function(){}, 	      // when the player returns a state of cued
+	onQualityChange: function(quality){}, // when the player quality changes
+	onRateChange: function(rate){},       // when the player rate changes
+	
+	// Error State Specific Functionality
+	onErrorNotFound: function(){},        // if a video cant be found
+	onErrorNotEmbeddable: function(){},   // if a video isnt embeddable
+	onErrorInvalidParameter: function(){} // if we've got an invalid param and can't play
+	
+};
+```
 
 ### Player API Events (tubeplayer options)
 
 #### User invoked callbacks
 
-	```
-	onPlay
-	onPause
-	onStop
-	onSeek
-	onMute
-	onUnMute
-	```
+```
+onPlay
+onPause
+onStop
+onSeek
+onMute
+onUnMute
+```
 
 #### Player invoked callbacks
 
-	```
-	onPlayerUnstarted
-	onPlayerEnded
-	onPlayerPlaying
-	onPlayerPaused
-	onPlayerBuffering
-	onPlayerCued
-	onQualityChange
-	onRateChange
+```
+onPlayerUnstarted
+onPlayerEnded
+onPlayerPlaying
+onPlayerPaused
+onPlayerBuffering
+onPlayerCued
+onQualityChange
+onRateChange
 
-	onErrorNotFound
-	onErrorNotEmbeddable
-	onErrorInvalidParameter
-	```
+onErrorNotFound
+onErrorNotEmbeddable
+onErrorInvalidParameter
+```
 	
 ### TubePlayer API Methods
 
 #### Player
 
-	```javascript
-	jQuery("#player").tubeplayer("cue", playerId);
+```javascript
+jQuery("#player").tubeplayer("cue", playerId);
 
-	jQuery("#player").tubeplayer("play");
-	jQuery("#player").tubeplayer("play", videoId);
-	jQuery("#player").tubeplayer("play", {id: videoId, time: 0});
+jQuery("#player").tubeplayer("play");
+jQuery("#player").tubeplayer("play", videoId);
+jQuery("#player").tubeplayer("play", {id: videoId, time: 0});
 
-	jQuery("#player").tubeplayer("pause");
-	jQuery("#player").tubeplayer("stop");
+jQuery("#player").tubeplayer("pause");
+jQuery("#player").tubeplayer("stop");
 
-	jQuery("#player").tubeplayer("seek","0:32");
-	jQuery("#player").tubeplayer("seek",100); // or use seconds
+jQuery("#player").tubeplayer("seek","0:32");
+jQuery("#player").tubeplayer("seek",100); // or use seconds
 
-	jQuery("#player").tubeplayer("size",{width:400,height:300});
+jQuery("#player").tubeplayer("size",{width:400,height:300});
 
-	jQuery("#player").tubeplayer("destroy");
+jQuery("#player").tubeplayer("destroy");
 
-	jQuery("#player").tubeplayer("player");
-	```
+jQuery("#player").tubeplayer("player");
+```
 
 #### Sound
 
-	```javascript
-	jQuery("#player").tubeplayer("mute");
-	jQuery("#player").tubeplayer("unmute");
-	jQuery("#player").tubeplayer("isMuted");
+```javascript
+jQuery("#player").tubeplayer("mute");
+jQuery("#player").tubeplayer("unmute");
+jQuery("#player").tubeplayer("isMuted");
 
-	jQuery("#player").tubeplayer("volume");
-	jQuery("#player").tubeplayer("volume",50); // 0-100
-	```
+jQuery("#player").tubeplayer("volume");
+jQuery("#player").tubeplayer("volume",50); // 0-100
+```
 
 #### Playback
 
-	```javascript
-	jQuery("#player").tubeplayer("quality");
-	jQuery("#player").tubeplayer("quality", "hd720"); // video must support this and be sized appropriately
+```javascript
+jQuery("#player").tubeplayer("quality");
+jQuery("#player").tubeplayer("quality", "hd720"); // video must support this and be sized appropriately
 
-	jQuery("#player").tubeplayer("playbackRate"); 
-	jQuery("#player").tubeplayer("playbackRate", 1.5); // video must support this
-	```
+jQuery("#player").tubeplayer("playbackRate"); 
+jQuery("#player").tubeplayer("playbackRate", 1.5); // video must support this
+```
 
 #### Playlist
 
-	```javascript
-	jQuery("#player").tubeplayer("playPlaylist", [videoId1, videoId2]);
-	jQuery("#player").tubeplayer("playPlaylist", {playlist: [videoId1], index: 1});
+```javascript
+jQuery("#player").tubeplayer("playPlaylist", [videoId1, videoId2]);
+jQuery("#player").tubeplayer("playPlaylist", {playlist: [videoId1], index: 1});
 
-	jQuery("#player").tubeplayer("next");
-	jQuery("#player").tubeplayer("previous");
-	jQuery("#player").tubeplayer("playVideoAt", 1);
-	```
+jQuery("#player").tubeplayer("next");
+jQuery("#player").tubeplayer("previous");
+jQuery("#player").tubeplayer("playVideoAt", 1);
+```
 
 #### Data/Info
 
-	```javascript
-	jQuery("#player").tubeplayer("data");
-	jQuery("#player").tubeplayer("opts");
-	jQuery("#player").tubeplayer("videoId");
-	```
+```javascript
+jQuery("#player").tubeplayer("data");
+jQuery("#player").tubeplayer("opts");
+jQuery("#player").tubeplayer("videoId");
+```
 
 ## Testing
 
@@ -193,15 +193,15 @@ The console enables the quick creation and destruction of a youtube player with 
 
 In order to use the console, you will need to run a web server. A simple example would be to use python's SimpleHTTPServer. Here is an example of how to create host one on port 8082, from your command line navigate to the appropriate directory you want to serve up and then:
 
-	```bash
-	python -m SimpleHTTPServer 8082
-	```
-	
+```bash
+python -m SimpleHTTPServer 8082
+```
+
 There is a bash script that will run the debug console from the root directory. Assuming $CWD is the root directory:
 
-	```bash
-	./scripts/server.sh
-	```
+```bash
+./scripts/server.sh
+```
 
 To access..
 
