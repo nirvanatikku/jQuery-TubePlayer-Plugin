@@ -8,8 +8,8 @@ The TubePlayer plugin allows developers to focus on functionality as opposed to 
 
 Download the [production version][min] or the [development version][max].
 
-[min]: https://raw.github.com/nirvanatikku/jQuery-TubePlayer-Plugin/master/jquery.tubeplayer.min.js
-[max]: https://raw.github.com/nirvanatikku/jQuery-TubePlayer-Plugin/master/jquery.tubeplayer.js
+[min]: https://raw.github.com/nirvanatikku/jQuery-TubePlayer-Plugin/master/dist/jquery.tubeplayer.min.js
+[max]: https://raw.github.com/nirvanatikku/jQuery-TubePlayer-Plugin/master/dist/jquery.tubeplayer.js
 
 In your web page:
 	
