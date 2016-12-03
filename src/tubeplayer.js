@@ -120,7 +120,8 @@
             playing: {},
             paused: {},
             buffering: {},
-            cued: {}
+            cued: {},
+            loaded: {}
         },
         onErr: {
             defaultError: {},
@@ -166,6 +167,7 @@
         onUnMute: function() {},
 
         // functions called when events are triggered from the youtube player itself
+        onPlayerLoaded: function(){},
         onPlayerUnstarted: function() {},
         onPlayerEnded: function() {},
         onPlayerPlaying: function() {},
@@ -339,6 +341,7 @@
                     'onReady': function(evt) {
                         TP.ytplayers[o.playerID] = evt.target;
                         var $player = $(evt.target.getIframe()).parents("." + TUBEPLAYER_CLASS);
+                        $player.tubeplayer('opts').onPlayerLoaded.call($player);
                         $.tubeplayer.defaults.afterReady($player);
                     },
                     'onPlaybackQualityChange': $.tubeplayer.defaults.qualityChange(o.playerID),
@@ -382,6 +385,7 @@
         dp.paused[ID] = o.onPlayerPaused;
         dp.buffering[ID] = o.onPlayerBuffering;
         dp.cued[ID] = o.onPlayerCued;
+        dp.loaded[ID] = o.onPlayerLoaded;
 
         // default onQualityChange
         d.onQualityChange[ID] = o.onQualityChange;
@@ -589,7 +593,7 @@
             delete TP.ytplayers[p.opts.playerID];
             // cleanup callback handler references..
             var d = $.tubeplayer.defaults;
-            var events = ['unstarted', 'ended', 'playing', 'paused', 'buffering', 'cued'];
+            var events = ['unstarted', 'ended', 'playing', 'paused', 'buffering', 'cued', 'loaded'];
             $.each(events, function(i, event) {
                 delete d.onPlayer[event][p.opts.playerID];
             });
