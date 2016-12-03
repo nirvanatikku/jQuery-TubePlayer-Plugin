@@ -15,20 +15,15 @@ In your web page:
 	
 ```html
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="//raw.githubusercontent.com/nirvanatikku/jQuery-TubePlayer-Plugin/master/dist/jquery.tubeplayer.min.js"></script>
+<script src="jquery.tubeplayer.js"></script>
 <div id='youtube-video-player'></div>
 <script type="text/javascript">
 jQuery(document).ready(function(){
 	jQuery("#youtube-video-player").tubeplayer({
-		width: 600, // the width of the player
-		height: 450, // the height of the player
-		initialVideo: "kOkQ4T5WO9E", // the video that is loaded into the player
-		onPlay: function(id){}, // after the play method is called
-		onPause: function(){}, // after the pause method is called
-		onStop: function(){}, // after the player is stopped
-		onSeek: function(time){}, // after the video has been seeked to a defined point
-		onMute: function(){}, // after the player is muted
-		onUnMute: function(){} // after the player is unmuted
+		initialVideo: "kOkQ4T5WO9E",
+		onPlayerLoaded: function(){
+			console.log(this.tubeplayer("data"));
+		},
 	});
 });
 </script>
@@ -39,7 +34,7 @@ jQuery(document).ready(function(){
 ### TubePlayer Plugin Defaults
 
 ```javascript
-{
+$.tubeplayer.defaults.settings = {
 	
 	// Plugin init params
 	width: 480, 					      			// the width of the player
@@ -74,6 +69,7 @@ jQuery(document).ready(function(){
 	onPlayerPaused: function(){}, 	      			// player returns a state of paused
 	onPlayerBuffering: function(){},      			// player returns a state of buffering
 	onPlayerCued: function(){}, 	      			// player returns a state of cued
+	onPlayerLoaded: function(){},                   // player is initially loaded and attached to the DOM
 	onQualityChange: function(quality){}, 			// player quality changes
 	onRateChange: function(rate){},       			// player rate changes
 	
@@ -107,6 +103,7 @@ onPlayerPlaying
 onPlayerPaused
 onPlayerBuffering
 onPlayerCued
+onPlayerLoaded
 onQualityChange
 onRateChange
 
