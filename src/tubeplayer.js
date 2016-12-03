@@ -135,7 +135,7 @@
      * plugin to work without providing any parameters. They
      * are merged with the users options.
      */
-    var defaults = {
+    $.tubeplayer.defaults.settings = {
 
         // public facing
         width: 480,
@@ -222,7 +222,7 @@
                             'id' : ids ? ids : ''
                         });
                         $this.replaceWith(newDiv);
-                        var new_input = $.extend({}, defaults, settings, input);
+                        var new_input = $.extend({}, $.tubeplayer.defaults.settings, settings, input);
                         TP.init(newDiv, new_input);
                     }
                 } else {
@@ -277,7 +277,7 @@
         if ($player.hasClass(TUBEPLAYER_CLASS)) {
             return $player;
         }
-        var o = $.extend({}, defaults, opts);
+        var o = $.extend({}, $.tubeplayer.defaults.settings, opts);
         o.playerID += "-" + guid();
         $player.addClass(TUBEPLAYER_CLASS).data(OPTS, o);
         for (var event in PlayerEvents){
