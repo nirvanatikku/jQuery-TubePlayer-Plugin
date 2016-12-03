@@ -48,7 +48,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="#"><strong>jQuery YouTube TubePlayer Plugin V2.0</strong></a></li>
         <li><a href="../test/tubeplayer.html">Unit Tests</a></li>
-        <li><a href="http://www.tikku.com/jQuery-youtube-tubeplayer-plugin/api">TubePlayer API</a></li>
+        <li><a href="http://www.tikku.com/jQuery-youtube-tubeplayer-plugin">TubePlayer API</a></li>
         <li><a href="https://developers.google.com/youtube/iframe_api_reference">YouTube Player API</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -482,6 +482,9 @@
             },
             onPlayerCued: function(){
                 printPlayerUpdate("CUED (onPlayerCued)");
+            },
+            onPlayerLoaded: function(){
+                printPlayerUpdate("LOADED (onPlayerLoaded)");
             },
             onQualityChange: function(qual){
                 printPlayerUpdate("QUALITY CHANGED: " + qual +" (onQualityChange)");

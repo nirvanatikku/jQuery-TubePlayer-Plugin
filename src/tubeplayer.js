@@ -120,7 +120,8 @@
             playing: {},
             paused: {},
             buffering: {},
-            cued: {}
+            cued: {},
+            loaded: {}
         },
         onErr: {
             defaultError: {},
@@ -135,7 +136,7 @@
      * plugin to work without providing any parameters. They
      * are merged with the users options.
      */
-    var defaults = {
+    $.tubeplayer.defaults.settings = {
 
         // public facing
         width: 480,
@@ -166,6 +167,7 @@
         onUnMute: function() {},
 
         // functions called when events are triggered from the youtube player itself
+        onPlayerLoaded: function(){},
         onPlayerUnstarted: function() {},
         onPlayerEnded: function() {},
         onPlayerPlaying: function() {},
@@ -222,7 +224,7 @@
                             'id' : ids ? ids : ''
                         });
                         $this.replaceWith(newDiv);
-                        var new_input = $.extend({}, defaults, settings, input);
+                        var new_input = $.extend({}, $.tubeplayer.defaults.settings, settings, input);
                         TP.init(newDiv, new_input);
                     }
                 } else {
@@ -277,7 +279,7 @@
         if ($player.hasClass(TUBEPLAYER_CLASS)) {
             return $player;
         }
-        var o = $.extend({}, defaults, opts);
+        var o = $.extend({}, $.tubeplayer.defaults.settings, opts);
         o.playerID += "-" + guid();
         $player.addClass(TUBEPLAYER_CLASS).data(OPTS, o);
         for (var event in PlayerEvents){
@@ -339,6 +341,7 @@
                     'onReady': function(evt) {
                         TP.ytplayers[o.playerID] = evt.target;
                         var $player = $(evt.target.getIframe()).parents("." + TUBEPLAYER_CLASS);
+                        $player.tubeplayer('opts').onPlayerLoaded.call($player);
                         $.tubeplayer.defaults.afterReady($player);
                     },
                     'onPlaybackQualityChange': $.tubeplayer.defaults.qualityChange(o.playerID),
@@ -382,6 +385,7 @@
         dp.paused[ID] = o.onPlayerPaused;
         dp.buffering[ID] = o.onPlayerBuffering;
         dp.cued[ID] = o.onPlayerCued;
+        dp.loaded[ID] = o.onPlayerLoaded;
 
         // default onQualityChange
         d.onQualityChange[ID] = o.onQualityChange;
@@ -589,7 +593,7 @@
             delete TP.ytplayers[p.opts.playerID];
             // cleanup callback handler references..
             var d = $.tubeplayer.defaults;
-            var events = ['unstarted', 'ended', 'playing', 'paused', 'buffering', 'cued'];
+            var events = ['unstarted', 'ended', 'playing', 'paused', 'buffering', 'cued', 'loaded'];
             $.each(events, function(i, event) {
                 delete d.onPlayer[event][p.opts.playerID];
             });

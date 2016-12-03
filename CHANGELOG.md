@@ -1,5 +1,10 @@
 # Changelog
 
+__v2.1.0 - Dec 2, 2016__
+
+* Exposed default settings `$.tubeplayer.defaults.settings`
+* New player event: "onPlayerLoaded", _complementing_ $.tubeplayer.defaults.afterReady
+
 __v2.0.0 - Dec 2, 2016__
 
 * Removed code to handle flash player (due to deprecation); instead - uses iframe player exclusively
