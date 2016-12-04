@@ -12,19 +12,19 @@ Download the [production version][min] or the [development version][max].
 [max]: https://raw.github.com/nirvanatikku/jQuery-TubePlayer-Plugin/master/dist/jquery.tubeplayer.js
 
 In your web page:
-	
+    
 ```html
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="jquery.tubeplayer.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-tubeplayer/2.1.0/jquery.tubeplayer.min.js"></script>
 <div id='youtube-video-player'></div>
 <script type="text/javascript">
 jQuery(document).ready(function(){
-	jQuery("#youtube-video-player").tubeplayer({
-		initialVideo: "kOkQ4T5WO9E",
-		onPlayerLoaded: function(){
-			console.log(this.tubeplayer("data"));
-		},
-	});
+    jQuery("#youtube-video-player").tubeplayer({
+        initialVideo: "kOkQ4T5WO9E",
+        onPlayerLoaded: function(){
+            console.log(this.tubeplayer("data"));
+        },
+    });
 });
 </script>
 ```
@@ -35,49 +35,50 @@ jQuery(document).ready(function(){
 
 ```javascript
 $.tubeplayer.defaults.settings = {
-	
-	// Plugin init params
-	width: 480, 					      			// the width of the player
-	height: 270, 					      			// the height of the player
-	allowFullScreen: "true", 		      			// true by default, allow user to go full screen
-	initialVideo: "DkoeNLuMbcI", 	      			// the video that is loaded into the player
-	start: 0, 
-	preferredQuality: "default",	      			// preferred quality: auto, small, medium, large, hd720
-	controls: 1, 					      			// whether the player should have the controls visible, 0 or 1 or 2
-	showRelated: false, 			      			// show the related videos when the player ends, 0 or 1 
-	playsinline: false,				      			// setting for ipad
-	autoPlay: false, 				      			// whether the player should autoplay the video, 0 or 1
-	color: "red", 					      			// possible options: "red" or "white"
-	showinfo: false, 				      			// if you want the player to include details about the video
-	modestbranding: true, 			      			// specify to include/exclude the YouTube watermark
-	annotations: true, 				      			// show annotations?
-	loop: 0, 						      			// whether or not the player will loop
-	protocol: 'http', 
+    
+    // Plugin init params
+    width: 480,                                     // the width of the player
+    height: 270,                                    // the height of the player
+    allowFullScreen: "true",                        // true by default, allow user to go full screen
+    initialVideo: "DkoeNLuMbcI",                    // the video that is loaded into the player
+    playlist: null,                                 // array of video id's if a playlist is desired
+    start: 0, 
+    preferredQuality: "default",                    // preferred quality: auto, small, medium, large, hd720
+    controls: 1,                                    // whether the player should have the controls visible, 0 or 1 or 2
+    showRelated: false,                             // show the related videos when the player ends, 0 or 1 
+    playsinline: false,                             // setting for ipad
+    autoPlay: false,                                // whether the player should autoplay the video, 0 or 1
+    color: "red",                                   // possible options: "red" or "white"
+    showinfo: false,                                // if you want the player to include details about the video
+    modestbranding: true,                           // specify to include/exclude the YouTube watermark
+    annotations: true,                              // show annotations?
+    loop: 0,                                        // whether or not the player will loop
+    protocol: 'http', 
 
-	// Player Trigger Specific Functionality
-	onPlay: function(id){}, 		      			// after the play method is called
-	onPause: function(){}, 			      			// after the pause method is called
-	onStop: function(){}, 			      			// after the player is stopped
-	onSeek: function(time){}, 		      			// after the video has been seeked to a defined point
-	onMute: function(){}, 			      			// after the player is muted
-	onUnMute: function(){}, 		      			// after the player is unmuted
-	
-	// Player State Change Specific Functionality
-	onPlayerUnstarted: function(){},      			// player returns a state of unstarted
-	onPlayerEnded: function(){}, 	      			// player returns a state of ended
-	onPlayerPlaying: function(){},        			// player returns a state of playing
-	onPlayerPaused: function(){}, 	      			// player returns a state of paused
-	onPlayerBuffering: function(){},      			// player returns a state of buffering
-	onPlayerCued: function(){}, 	      			// player returns a state of cued
-	onPlayerLoaded: function(){},                   // player is initially loaded and attached to the DOM
-	onQualityChange: function(quality){}, 			// player quality changes
-	onRateChange: function(rate){},       			// player rate changes
-	
-	// Error State Specific Functionality
-	onErrorNotFound: function(){},        			// if a video cant be found
-	onErrorNotEmbeddable: function(){},   			// if a video isnt embeddable
-	onErrorInvalidParameter: function(){} 			// if we've got an invalid param and can't play
-	
+    // Player Trigger Specific Functionality
+    onPlay: function(id){},                         // after the play method is called
+    onPause: function(){},                          // after the pause method is called
+    onStop: function(){},                           // after the player is stopped
+    onSeek: function(time){},                       // after the video has been seeked to a defined point
+    onMute: function(){},                           // after the player is muted
+    onUnMute: function(){},                         // after the player is unmuted
+    
+    // Player State Change Specific Functionality
+    onPlayerUnstarted: function(){},                // player returns a state of unstarted
+    onPlayerEnded: function(){},                    // player returns a state of ended
+    onPlayerPlaying: function(){},                  // player returns a state of playing
+    onPlayerPaused: function(){},                   // player returns a state of paused
+    onPlayerBuffering: function(){},                // player returns a state of buffering
+    onPlayerCued: function(){},                     // player returns a state of cued
+    onPlayerLoaded: function(){},                   // player is initially loaded and attached to the DOM
+    onQualityChange: function(quality){},           // player quality changes
+    onRateChange: function(rate){},                 // player rate changes
+    
+    // Error State Specific Functionality
+    onErrorNotFound: function(){},                  // if a video cant be found
+    onErrorNotEmbeddable: function(){},             // if a video isnt embeddable
+    onErrorInvalidParameter: function(){}           // if we've got an invalid param and can't play
+    
 };
 ```
 
@@ -111,7 +112,7 @@ onErrorNotFound
 onErrorNotEmbeddable
 onErrorInvalidParameter
 ```
-	
+    
 ### TubePlayer API Methods
 
 #### Player
@@ -160,8 +161,11 @@ jQuery("#player").tubeplayer("playbackRate", 1.5); // video must support this
 #### Playlist
 
 ```javascript
+jQuery("#player").tubeplayer("cuePlaylist", [videoId1, videoId2]);
+jQuery("#player").tubeplayer("cuePlaylist", {playlist: [videoId1, videoId2], index: 1});
+
 jQuery("#player").tubeplayer("playPlaylist", [videoId1, videoId2]);
-jQuery("#player").tubeplayer("playPlaylist", {playlist: [videoId1], index: 1});
+jQuery("#player").tubeplayer("playPlaylist", {playlist: [videoId1, videoId2], index: 1});
 
 jQuery("#player").tubeplayer("next");
 jQuery("#player").tubeplayer("previous");
