@@ -15,7 +15,7 @@ In your web page:
 	
 ```html
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="jquery.tubeplayer.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-tubeplayer/2.1.0/jquery.tubeplayer.min.js"></script>
 <div id='youtube-video-player'></div>
 <script type="text/javascript">
 jQuery(document).ready(function(){
@@ -41,6 +41,7 @@ $.tubeplayer.defaults.settings = {
 	height: 270, 					      			// the height of the player
 	allowFullScreen: "true", 		      			// true by default, allow user to go full screen
 	initialVideo: "DkoeNLuMbcI", 	      			// the video that is loaded into the player
+	playlist: null,									// array of video id's if a playlist is desired
 	start: 0, 
 	preferredQuality: "default",	      			// preferred quality: auto, small, medium, large, hd720
 	controls: 1, 					      			// whether the player should have the controls visible, 0 or 1 or 2
