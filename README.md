@@ -161,8 +161,11 @@ jQuery("#player").tubeplayer("playbackRate", 1.5); // video must support this
 #### Playlist
 
 ```javascript
+jQuery("#player").tubeplayer("cuePlaylist", [videoId1, videoId2]);
+jQuery("#player").tubeplayer("cuePlaylist", {playlist: [videoId1, videoId2], index: 1});
+
 jQuery("#player").tubeplayer("playPlaylist", [videoId1, videoId2]);
-jQuery("#player").tubeplayer("playPlaylist", {playlist: [videoId1], index: 1});
+jQuery("#player").tubeplayer("playPlaylist", {playlist: [videoId1, videoId2], index: 1});
 
 jQuery("#player").tubeplayer("next");
 jQuery("#player").tubeplayer("previous");
