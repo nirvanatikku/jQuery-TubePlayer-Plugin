@@ -153,7 +153,7 @@
         loop: 0,
         color: 'red', // 'red' or 'white'
         showinfo: false,
-        modestbranding: true,
+        modestbranding: false,
         protocol: window.location.protocol == "https:" ? "https" : "http", // set to 'https' for compatibility on SSL-enabled pages
         allowScriptAccess: "always",
         playerID: "tubeplayer-player-container",
